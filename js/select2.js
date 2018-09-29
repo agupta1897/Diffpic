@@ -16,22 +16,17 @@ $(document).ready(function() {
             method: "GET",
             dataType: "json",
             success: function(res) {
+                repoSelect.empty();
+                repoSelect.val(null).trigger('change');
                 console.log(res)
-            } 
-        }).then(function(res){
-            var i;
-            for (i = 0; i < res.length; i++) {
+                var i;
+                for (i = 0; i < res.length; i++) {
                 var newOption = new Option(res[i]["name"], i, false, false);
                 repoSelect.append(newOption).trigger('change');
-
-                repoSelect.trigger({
-                    type: 'select2:select', 
-                    params: {
-                        data: res
-                    }
-                });
-            }
+                
+                }
+            } 
+            });
         });
-    });
 });
 
