@@ -3,6 +3,7 @@
         <title>Pic Diff</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+        <script src="js/jscolor.js"></script>
         <style>
             .switch {
                 position: relative;
@@ -120,6 +121,9 @@
         </div>
         <div id="diff-container" style="width:600; height:400; margin-top:-400; z-index: 0;">
             <canvas id="diffpic" width=600 height=400></canvas>
+        </div>
+        <div>
+            Diff color: <input id="diff-color" class="jscolor" value="ff0000">
         </div>
         <div class="diff-slidecontainer">
             <p>Diff intensity:</p>
