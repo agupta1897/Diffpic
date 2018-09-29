@@ -10,7 +10,7 @@ $(document).ready(function() {
     });
 
     $("#git-repo").select2({
-        maximumSelectionLength: 1,
+        
         placeholder: {
             id: '-1', // the value of the option
             text: 'Enter repo name'
