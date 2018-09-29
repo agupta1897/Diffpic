@@ -1,4 +1,5 @@
 var commitIds = new Array();
+var commitDates = new Array();
 
 function loadImagefromId(commitId1, commitId2)
 {
@@ -126,20 +127,31 @@ function drawDiff(red, green, blue) {
     diffpic.getContext("2d").putImageData(pic1Data, 0, 0);
 }
 
+function convertTimeto12Hours(string)
+{
+var convertedHours = 0;
+var hours = parseInt(string.split(':')[0],10);
+var suffix = (hours > 12)? 'PM' : 'AM';
+convertedHours = ((hours + 11) % 12 + 1);
+var result = convertedHours + ":" +string.split(':')[1] +" " + suffix;
+return result;
+}
+
 $(document).ready(function(){
-    
     function loadAllCommits() {
         var URLName  = "https://api.github.com/repos/damccoy1/picdiff/commits?path=friends_on_a_cooler.png"
-        $.get(URLName, function(data){
-        
+        $.get(URLName, function(data){        
             commitIds = [];
             for( i = data.length-1; i > -1; i--)
             {
-            commitIds.push(data[i]["sha"]);
-            $("#timeline").append("<div class='col' style='text-align:center'>" + data[i]["sha"].substring(0, 5) + "</div>");
+                commitIds.push(data[i]["sha"]);
+                commitDates.push( data[i]["commit"]["author"]["date"].substring(0,10) + " " + convertTimeto12Hours( data[i]["commit"]["author"]["date"].substring(11,data[i]["commit"]["author"]["date"].length-1)));
+                $("#timeline").append(" <div class='col' style='text-align:center; font-size:15;'>" + commitIds[commitDates.length-1].substring(0, 5) 
+                +
+                  "<div class='col' style='text-align:center; font-size:10;'>" + commitDates[commitDates.length-1] +" </div></div>");
             }
-            $("#slider").attr("max", data.length);
-            $("#slider").attr("value", data.length/2);   
+                $("#slider").attr("max", data.length);
+                $("#slider").attr("value", data.length/2);   
             updateImages();  
         });
         $("#slider").show();
