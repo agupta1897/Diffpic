@@ -1,12 +1,12 @@
 var commitIds = new Array();
 function loadFileFromGitHub()
 {
-    $("#picture").attr("src", "http://raw.githubusercontent.com/agupta1897/ImageDiffTesting/6f96e99df0f4b7c714c8f3425ee4aba1a839f23c/bitmoji-20180926060308.png");
+    $("#picture1").attr("src", "http://raw.githubusercontent.com/damccoy1/picdiff/0c9c387d9922b23780afb42f1bdd7f0f316d3d6e/friends_on_a_cooler.png");
 }
 
 function loadAllCommits()
 {
-    var URLName  = "https://api.github.com/repos/agupta1897/ImageDiffTesting/commits?path=bitmoji-20180926060308.png"
+    var URLName  = "https://api.github.com/repos/damccoy1/picdiff/commits?path=friends_on_a_cooler.png"
     $.get(URLName, function(data){
     
         commitIds = [];
@@ -17,25 +17,29 @@ function loadAllCommits()
         }
         $("#slider").attr("max", data.length);
         $("#slider").attr("value", data.length/2);   
+        updateImages();
     });
     $("#slider").show();
 }
 
-function loadImagefromId(commitId, commitId2)
+function loadImagefromId(commitId1, commitId2)
 {
-    var URLName  = "http://raw.githubusercontent.com/agupta1897/ImageDiffTesting/" + commitId + "/bitmoji-20180926060308.png"
+    var URLName  = "http://raw.githubusercontent.com/damccoy1/picdiff/" + commitId1 + "/friends_on_a_cooler.png"
     if(commitId2 !== null)
     {
    
-    $("#picture").attr("src", URLName);
-        $("#picture2").show()
-        URLName  = "http://raw.githubusercontent.com/agupta1897/ImageDiffTesting/" + commitId2 + "/bitmoji-20180926060308.png"
-        $("#picture2").attr("src",URLName);
+    $("#picture1").attr("src", URLName);
+    $("#picture1Label").html(commitId1.substring(0,5));
+    $("#picture2Container").show();
+    $("#picture2Label").html(commitId2.substring(0,5));
+    URLName  = "http://raw.githubusercontent.com/damccoy1/picdiff/" + commitId2 + "/friends_on_a_cooler.png"
+    $("#picture2").attr("src",URLName);
     }
     else
     {
-        $("#picture").attr("src", URLName);
-        $("#picture2").hide()
+        $("#picture1").attr("src", URLName);
+        $("#picture1Label").html(commitId1.substring(0,5));
+        $("#picture2Container").hide();
     }
     }
 
@@ -47,25 +51,29 @@ function loadImagefromId(commitId, commitId2)
 //    }
 // }
 
+function updateImages() {
+    if (($('#slider').val())>0 && ($('#slider').val())<commitIds.length)
+    {
+    loadImagefromId(commitIds[$('#slider').val()-1],commitIds[$('#slider').val()])
+    }
+    else if($('#slider').val() == commitIds.length)
+    {
+        loadImagefromId(commitIds[$('#slider').val()-1],null)
+    }
+    else
+    {
+        loadImagefromId(commitIds[$('#slider').val()],null)
+    }
+}
+
 $(document).ready(function(){
+    $("#picture2Container").hide();
     $("#slider").hide();
     $("#get-file-btn").click(function(){
-        loadFileFromGitHub();
         loadAllCommits();
     });
     $('#slider').on('input', function(){
         console.log($('#slider').val());
-        if (($('#slider').val())>0 && ($('#slider').val())<commitIds.length)
-        {
-        loadImagefromId(commitIds[$('#slider').val()-1],commitIds[$('#slider').val()])
-        }
-        else if($('#slider').val() == commitIds.length)
-        {
-            loadImagefromId(commitIds[$('#slider').val()-1],null)
-        }
-        else
-        {
-            loadImagefromId(commitIds[$('#slider').val()],null)
-        }
+        updateImages();
         });
 })
