@@ -21,47 +21,47 @@
         </div> 
         <div class="row justify-content-center" style="margin-top: 10px">
             <div class="col-sm" style="text-align: center" id="picture1Container">
-                    <canvas id="pic1" width=500 height=500 class="canvas-container"></canvas>
+                    <canvas id="pic1" width=500 height=300 class="canvas-container"></canvas>
                 <p id="picture1Label"></p>
             </div>
             <div class="col-sm" style="text-align: center" id="picture2Container">
-                    <canvas id="pic2" width=500 height=500 class="canvas-container"></canvas> 
+                    <canvas id="pic2" width=500 height=300 class="canvas-container"></canvas> 
                 <p id="picture2Label"></p>
             </div>
         </div>
         <label id = "jsonForCommits" title="" ></label>
-        <div id="diff-og-container" class="row justify-content-center canvas-container" style="width:500;height:500;z-index: 9999;">
-            <div class="col-8">
-                <canvas id="diffBack" width=500 height=500></canvas>
+        <div id="diff-og-container" class="row justify-content-center canvas-container" style="z-index: 9999;">
+            <div class="col-12">
+                <canvas id="diffBack" width=500 height=300 style="margin-left:auto;margin-right: auto"></canvas>
             </div>
         </div>
-        <div id="diff-container" class="row justify-content-center" style="width:500;height:500;margin-top:-500; z-index: 0;">
-            <div class="col-8">
-                <canvas id="diffpic" width=500 height=500></canvas>
-                <p id="diffpicLabel">Diff</p>
+        <div id="diff-container" class="row justify-content-center" style="margin-top:-300; z-index: 0;">
+            <div class="col-12">
+                <canvas id="diffpic" width=500 height=300 style="margin-left:auto;margin-right: auto"></canvas>
             </div>
+            <p id="diffpicLabel">Diff</p>
         </div>
         <div id="diff-tools" class="container">
-            <div class="row">
-                <div class="col-2">
-                    <p>Use Soft Diff</p>
+            <div class="row justify-content-center">
+                <div class="col-8" style="text-align: center">
+                    <p>Use Differentiated Diff</p>
                     <label class="switch">
                         <input type="checkbox" id="soft-diff-slider">
                         <span class="switch-slider"></span>
                     </label>                
                 </div>
-                <div class="col-2">
+                <div class="col-8" style="text-align: center">
                     Diff color: <input id="diff-color" class="jscolor" value="ff0000">
                 </div>
             </div>
-            <div class="row">
-                <div class="col-4">
+            <div class="row  justify-content-center">
+                <div class="col-10" style="text-align: center">
                     <p>Diff intensity:</p>
                     <input type="range" min="0" max="100" value="100" class="slider" id="diff-intensity">            
                 </div>
             </div>
-            <div class="row">
-                <div class="col-2">
+            <div class="row justify-content-center">
+                <div class="col-8" style="text-align: center">
                     <p>Show image:</p>
                     <label class="switch">
                         <input type="checkbox" id="image-chkbx" checked>
