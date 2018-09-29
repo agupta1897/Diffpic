@@ -1,57 +1,106 @@
 <html>
     <head>
-        <title>Pic Diff</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
-        <script src="js/jscolor.js"></script>
-        <link rel="stylesheet" type="text/css" href="css/styles.css" />           
-    </head>
-    <body>
-        <div style="margin-top:10px">
-            <input type="file" id="pic1Input">
-            <input type="file" id="pic2Input">
-            <button id="process-diff-btn">Process Diff</button>        
-        </div>
-        <div id="pic1-container">
-            <canvas id="pic1" width=600 height=400></canvas>
-        </div>
-        <div id="pic2-container"style="width:600; height:400; z-index: 9999">
-            <canvas id="pic2" width=600 height=400></canvas>
-        </div>
-        <div id="diff-og-container"style="width:600; height:400; z-index: 9999">
-            <canvas id="diffBack" width=600 height=400></canvas>
-        </div>
-        <div id="diff-container" style="width:600; height:400; margin-top:-400; z-index: 0;">
-            <canvas id="diffpic" width=600 height=400></canvas>
-        </div>
-        <div class="row">
-            <div class="col-2">
-                <p>Use Soft Diff</p>
-                <label class="switch-label">
-                    <input type="checkbox" id="soft-diff-slider">
-                    <span class="switch-slider"></span>
-                </label>                
-            </div>
-            <div class="col-2">
-                Diff color: <input id="diff-color" class="jscolor" value="ff0000">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-4">
-                <p>Diff intensity:</p>
-                <input type="range" min="0" max="100" value="100" class="slider" id="diff-intensity">            
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-2">
-                <p>Show image:</p>
-                <label class="switch-label">
-                    <input type="checkbox" id="image-chkbx" checked>
-                    <span class="switch-slider"></span>
-                </label>                  
-            </div>
-        </div>
+        <style>
+        </style>
+        <title>Visualize Differences</title>
         <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
         <script type="text/javascript" src="js/picdiff.js"></script>
+        <script src="visualize.js"></script>
+        <script src="js/jscolor.js"></script>   
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>  
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/styles.css" /> 
+    </head>
+    <body>         
+        <!-- <button id="get-file-btn">Get File from Github</button> -->
+       <br>
+        <div class="row justify-content-center">
+        <button class="btn-floating btn-medium waves-effect waves-light red" id= "btnLeftClick"><i class="material-icons">keyboard_arrow_left</i></button>
+        <div id="timeline" class="row justify-content-center" style="width:80%; margin-left:15; margin-right: 15"></div>      
+        <button class="btn-floating btn-medium waves-effect waves-light red" id="btnRightClick"><i class="material-icons">keyboard_arrow_right</i></button>
+        </div>
+        <div class="row justify-content-center" style="width:80%; margin-left: auto;margin-right: auto">
+            <div class="col-12 canvas-container">
+                <input  class="row" id="slider" type="range" min="0" max="4" style="width:100%"/>
+            </div>
+        </div> 
+  
+        <div class="row justify-content-center" style="margin-top: 10px">
+            <div class="col-sm" style="text-align: center" id="picture1Container">
+                <div id="pic1Box" class="image-left-style">
+                    <p id="picture1Label" style="text-align:center; background-color:lightgreen; margin:0; padding-bottom: 5px;"></p>
+                    <canvas id="pic1" width=500 height=300 class="canvas-container "></canvas>        
+                </div>
+            </div>
+            <div class="col-sm" style="text-align: center" id="picture2Container">
+                <div id="pic2Box" class="image-right-style">
+                    <p id="picture2Label" style="text-align:center; background-color:lightblue;margin:0; padding-bottom: 5px;"></p>
+                    <canvas id="pic2" width=500 height=300  class="canvas-container"></canvas>         
+                </div>
+            </div>
+        </div>
+        <label id = "jsonForCommits" title="" ></label>
+        <div id="diff-og-container" class="row justify-content-center canvas-container" style="z-index: 9999;">
+            <div class="col-12">
+                <canvas id="diffBack" width=500 height=300 style="margin-left:auto;margin-right: auto"></canvas>
+            </div>
+        </div>
+        <div id="diff-container" class="row justify-content-center" style="margin-top:-320; z-index: 0;">
+            <div class="col-12">
+                <canvas id="diffpic" width=500 height=300 style="margin-left:auto;margin-right: auto"></canvas>
+            </div>
+            <p id="diffpicLabel">Diff</p>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-8">
+                <div id="rotated-alert" class="alert alert-secondary" role="alert">
+                    It looks like this image was rotated, so we won't show you a diff.
+                </div>
+                <div id="resized-alert" class="alert alert-secondary" role="alert">
+                    It looks like this image was resized, so we won't show you a diff.
+                </div>                
+            </div>
+        </div>
+        <div id="diff-tools" class="container">
+            <div class="row justify-content-center roomy-row">
+                <div class="col-8" style="text-align: center">
+                    <div class="switch">
+                        <label>
+                            <span class="readable-label">Use Differentiated Diff</span>
+                            <input type="checkbox" id="soft-diff-slider">
+                            <span class="lever"></span>
+                        </label>
+                        <span class="readable-label-dscr"><br>(This helps for images that have been compressed, <br>or had a filter applied)</span>
+                    </div>                 
+                </div>
+            </div>
+            <div class="row justify-content-center roomy-row">
+                <div class="col-8" style="text-align: center">
+                    <span class="readable-label">Diff color: </span>
+                    <input id="diff-color" class="jscolor" value="ff0000" style="width:100px; border-radius: 30px; padding-left:15px">
+                </div>        
+            </div>
+            <div class="row justify-content-center roomy-row">
+                <div class="col-10" style="text-align: center">
+                    <span class="readable-label">Diff intensity</span>
+                    <input type="range" min="0" max="100" value="100" class="slider" id="diff-intensity">            
+                </div>
+            </div>
+            <div class="row justify-content-center roomy-row">
+                <div class="col-8" style="text-align: center">
+                    <div class="switch">
+                        <label>
+                            <span class="readable-label">Show image behind diff</span>
+                            <input type="checkbox" id="image-chkbx" checked>
+                            <span class="lever"></span>
+                        </label>
+                    </div>               
+                </div>
+            </div>            
+        </div>
     </body>
 </html>
