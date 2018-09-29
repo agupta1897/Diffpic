@@ -30,9 +30,14 @@ $(document).ready(function(){
         var data2 = pic2Data.data;
         for(var i = 0; i < data1.length; i += 4) {
             if (data1[i] != data2[i] || data1[i + 1] != data2[i + 1] || data1[i + 2] != data2[i + 2]){
-                data1[i] = 255     // red
+                var alpha = 255;
+                if ($("#soft-diff-slider")[0].checked){
+                    alpha = ((Math.abs(data1[i] - data2[i])+ Math.abs(data1[i + 1] - data2[i + 1])+ Math.abs(data1[i + 2] - data2[i + 2])) / 3);
+                }
+                data1[i] = 255;     // red
                 data1[i + 1] = 0; // green]
                 data1[i + 2] = 0; // blue
+                data1[i + 3] = alpha;
             }
             else {
                 data1[i+3] = 0;
