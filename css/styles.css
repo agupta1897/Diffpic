@@ -88,3 +88,7 @@ input:checked + .switch-slider:before {
     background: #4CAF50;
     cursor: pointer;
 }
+
+/* .canvas-container {
+    border: 1px solid black;
+} */
