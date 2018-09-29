@@ -57,7 +57,6 @@ $(document).ready(function() {
     repoSelect.on('select2:select', function (e) {
         $("#slides").empty();
         var data = e.params.data;
-        console.log(data);
         $.ajax({
             url: "https://api.github.com/repos/" + $("#username-field").val() + "/" + data["text"] + "/commits",
             jsonp: true,
@@ -65,7 +64,6 @@ $(document).ready(function() {
             dataType: "json",
             success: function(res) {
                 images = [];
-                console.log(res);
                 var sha = res[0]["sha"];
                 $.ajax({
                     url: "https://api.github.com/repos/" + $("#username-field").val() + "/" + data["text"] + "/git/trees/" + sha + "?recursive=1",
@@ -73,7 +71,6 @@ $(document).ready(function() {
                     method: "GET",
                     dataType: "json",
                     success: function(res) {
-                        console.log(res);
                         var i;
                         for (i = 0; i < res["tree"].length; i++){
                             if (res["tree"][i]["path"].includes(".jpg") || res["tree"][i]["path"].includes(".png") || res["tree"][i]["path"].includes(".jpeg")){
