@@ -104,15 +104,31 @@ canvas {
     max-width: 500px;
     width: 80%; 
 }
+.image-left-style
+{
+    border-color: lightgreen;
+     border: 10px solid lightgreen;
+}
+
+
+.image-right-style
+{
+    border-color: lightblue;
+     border: 10px solid lightblue
+}
 
 .timeline-selected-right-item
 {
-    background-color: lightcoral
+    background-color: lightblue;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
 }
 
 .timeline-selected-left-item
 {
-    background-color: lightgreen
+    background-color: lightgreen;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
 }
 
 .fixed-height {
