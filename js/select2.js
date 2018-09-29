@@ -10,7 +10,7 @@ $(document).ready(function() {
     });
 
     $("#git-repo").select2({
-        maximumSelectionLength: 1,
+        
         placeholder: {
             id: '-1', // the value of the option
             text: 'Enter repo name'
@@ -43,6 +43,17 @@ $(document).ready(function() {
         });
     }
 
+    var images = [];
+
+    function simpleTemplating(data) {
+        var html = '<div id="collection">';
+        $.each(data, function(index, item){
+            html += '<a href="#!" class="collection-item">'+ "<img src=" + item.src + " style=\"height: 350px\">" + "<p>" + item.path + "</p>" +'</a>';
+        });
+        html += '</div>';
+        return html;
+    }
+
     repoSelect.on('select2:select', function (e) {
         $("#slides").empty();
         var data = e.params.data;
@@ -65,24 +76,25 @@ $(document).ready(function() {
                         var i;
                         for (i = 0; i < res["tree"].length; i++){
                             if (res["tree"][i]["path"].includes(".jpg") || res["tree"][i]["path"].includes(".png") || res["tree"][i]["path"].includes(".jpeg")){
-                                var list = document.getElementById('slides');
-                                var li = document.createElement("a");
-                                li.setAttribute('href', '#!');
-                                li.classList.add('collection-item');
                                 var _img=document.createElement('img');
                                 _img.src="https://raw.githubusercontent.com/" + $("#username-field").val() + "/" + data["text"] + "/" + sha + "/" + res["tree"][i]["path"];
                                 _img.id = i;
+                                _img.path = res["tree"][i]["path"];
                                 _img.setAttribute('style', 'height: 500px');
-                                li.appendChild(_img);
-                                list.appendChild(li);
-
-                                var para = document.createElement("p");
-                                var path = document.createTextNode(res["tree"][i]["path"]);
-                                para.appendChild(path);
-                                li.append(para);
+                                images.push(_img);
                             }
                         }
-                        console.log(list);
+
+                        $('#pagination-container').pagination({
+                            dataSource: images,
+                            pageSize: 5,
+                            showGoInput: true,
+                            showGoButton: true,
+                            callback: function(data, pagination) {
+                                var html = simpleTemplating(data);
+                                $('#data-container').html(html);
+                            }
+                        });
                     } 
                 });
 
@@ -91,7 +103,9 @@ $(document).ready(function() {
         });    
     });
 
-    
+
+
+
 
 
 });

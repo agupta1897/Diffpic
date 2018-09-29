@@ -3,11 +3,15 @@
   <head>
      <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="http://pagination.js.org/dist/2.1.4/pagination.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script tpye="text/javascript" src="js/pagination.min.js"></script>
     <!-- <script type="text/javascript" src="js/jquery-ui.min.js"></script> -->
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
@@ -17,34 +21,32 @@
 
   </head>
   <body>
-    <div> 
-      <label>Enter Username:</label>
-      <input type="text" ng-model="userName" style = "width: 25%" placeholder="Enter a username here" id="username-field">
+    <div class="row">
+      <div class="col-4"> 
+        <label>Enter Username:</label>
+        <input type="text" ng-model="userName" style = "width: 25%" placeholder="Enter a username here" id="username-field">
+      </div>
+
+
+      <div class="col-8">
+          <label> Enter your GitHub Repo: </label>
+          <select id="git-repo" name="repo" class="git-repo" style="width: 800px; height: 10px">
+
+          </select>
+      </div>
     </div>
-
-
-    <div>
-        <select id="git-repo" name="repo" class="git-repo" multiple="multiple" style="width: 25%">
-
-        </select>
-    </div>
+    
 
     <!-- Create collection and display image -->
     <div class="collection" id="slides">
 
-    </div>
+    </div>  
 
     <!-- Create paginator -->
-    <div>
-    <ul class="pagination">
-      <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-      <li class="active"><a href="#!">1</a></li>
-      <li class="waves-effect"><a href="#!">2</a></li>
-      <li class="waves-effect"><a href="#!">3</a></li>
-      <li class="waves-effect"><a href="#!">4</a></li>
-      <li class="waves-effect"><a href="#!">5</a></li>
-      <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
-    </ul>
+    <div class="collection" id="data-container">
+    </div>
+
+    <div id="pagination-container">
     </div>
   </body>
 </html>
