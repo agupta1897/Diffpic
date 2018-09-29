@@ -105,6 +105,16 @@ canvas {
     width: 80%; 
 }
 
+.timeline-selected-right-item
+{
+    background-color: lightcoral
+}
+
+.timeline-selected-left-item
+{
+    background-color: lightgreen
+}
+
 .fixed-height {
     height: 300px;
 }

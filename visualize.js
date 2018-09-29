@@ -41,18 +41,37 @@ var img2Loaded = false;
 var pic1Data, pic2Data;
 var img1Width, img2Width, img1Height, img2Height;
 
+function clearAllSelectedTimeline()
+{
+    var j=  timelineIndex;
+    for (i = timelineIndex ; i< timelineIndex+4; i++)
+    {
+        $("#timelinediv"+i).removeClass("timeline-selected-right-item")
+        $("#timelinediv"+i).removeClass("timeline-selected-left-item")
+    }
+}
+
 function updateImages() {
     img1Loaded = false;
     img2Loaded = false;
-    if (($('#slider').val()) > 0 && ($('#slider').val()) < commitIds.length)
+    clearAllSelectedTimeline();
+  
+    var i = ( parseInt($("#slider").val())+ timelineIndex);
+    if (i > 0 && i < commitIds.length)
     {
-    loadImagefromId(commitIds[$('#slider').val()-1],commitIds[$('#slider').val()])
+        console.log("#timelinediv" + $("#slider").val())
+    $("#timelinediv" + i).addClass("timeline-selected-right-item")
+    $("#timelinediv" + (i-1)).addClass("timeline-selected-left-item")
+    loadImagefromId(commitIds[i-1],commitIds[i])
     }
     else {
-        if ($("#slider").val() == 0)
-            loadImagefromId(commitIds[$('#slider').val()],null)
+        if (i === 0)
+        {
+            $("#timelinediv" + i).addClass("timeline-selected-left-item")
+            loadImagefromId(commitIds[i],null)
+        }
         else {
-            loadImagefromId(commitIds[$('#slider').val() - 1],null)
+            loadImagefromId(commitIds[i],null)
         }
     }
 }
@@ -158,6 +177,27 @@ convertedHours = ((hours + 11) % 12 + 1);
 var result = convertedHours + ":" +string.split(':')[1] +" " + suffix;
 return result;
 }
+
+function updateTimelineButton()
+{
+    if(timelineIndex !== 0 )
+    {
+        $("#btnLeftClick").removeAttr("disabled");
+       
+    }else{
+        $("#btnLeftClick").attr("disabled", "disabled");
+    }
+
+    if((timelineIndex + 4)  < commitIds.length )
+    {
+        $("#btnRightClick").removeAttr("disabled");
+    }
+    else
+    {
+        $("#btnRightClick").attr("disabled", "disabled");
+    }
+}
+
 function updateTimelineToLeft()
 {
     if(timelineIndex === 0)
@@ -168,13 +208,12 @@ function updateTimelineToLeft()
         timelineIndex = timelineIndex -1;
         createTimelineMarkUp();
         if($("#slider").val() != commitIds.length)
-    {
-        console.log("Previous:" + $("#slider").val());
-        $("#slider").val(parseInt($("#slider").val()) + 1);
-        console.log("After:" + $("#slider").val());
-        updateImages();
+        {
+            $("#slider").val(parseInt($("#slider").val()) + 1);
+            updateImages();
+        }
     }
-    }
+    updateTimelineButton()
 }
 
 function updateTimelineToRight()
@@ -183,15 +222,19 @@ function updateTimelineToRight()
     {
         timelineIndex++;
         createTimelineMarkUp();
+ 
         if($("#slider").val() != 0)
-    {
-     // $("#slider").attr("value", $("#slider").val()-1 );
-     $("#slider").val(parseInt($("#slider").val()) - 1);
-     //updateImages();
+        {
+            $("#slider").val(parseInt($("#slider").val()) - 1);
+        // $("#slider").attr("value", $("#slider").val()-1 );
+        //$("#slider").attr("value",parseInt($("#slider").val()) - 1); 
+        // $("#slider").val(parseInt($("#slider").val()) - 1);
+        updateImages();
+        }
     }
-    }
-    
 
+    
+    updateTimelineButton()
 }
 
 function createTimelineMarkUp( )
@@ -199,9 +242,9 @@ function createTimelineMarkUp( )
     document.getElementById("timeline").innerHTML = "";
     for ( i = timelineIndex ; i< timelineIndex + 4; i++)
     {
-    $("#timeline").append(" <div class='col' style='text-align:center; font-size:15;'>" + commitIds[i].substring(0, 5) 
+    $("#timeline").append(" <div class='col' id='timelinediv" + i +"' style='text-align:center; font-size:15;'>" + commitIds[i].substring(0, 5) 
     +
-      "<div class='col' style='text-align:center; font-size:10;'>" + commitDates[i] +" </div></div>");
+      "<div class='col' id='timelinedate" + i +"' style='text-align:center; font-size:10;'>" + commitDates[i] +" </div></div>");
     }
 }
 
@@ -220,7 +263,7 @@ $(document).ready(function(){
             }
             createTimelineMarkUp();
                 
-                $("#slider").attr("value", data.length/2);   
+                $("#slider").attr("value", 2);   
             updateImages();  
         });
         $("#slider").show();
