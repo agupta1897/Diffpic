@@ -1,3 +1,3 @@
 $(document).ready(function() {
-    $('.gitUsername').select2();
+    $('.git-username').select2();
 });
