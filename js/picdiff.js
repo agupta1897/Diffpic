@@ -32,6 +32,11 @@ $(document).ready(function(){
         diffpic.getContext("2d").putImageData(pic1Data, 0, 0);
     }
 
+    $("#pic1-container").hide();
+    $("#pic2-container").hide();
+    $("#diff-og-container").hide();
+    $("#diff-container").hide();
+
     $("#pic1Input").change(function(e){
         var file = e.target.files[0],
             url = URL.createObjectURL(file),
@@ -42,6 +47,7 @@ $(document).ready(function(){
         }
         img.src = url;
         img.crossOrigin = "Anonymous";
+        $("#pic1-container").show();
     });
     
     $("#pic2Input").change(function(e){
@@ -54,11 +60,14 @@ $(document).ready(function(){
         }
         img.src = url;
         img.crossOrigin = "Anonymous";
+        $("#pic2-container").show();
     });
 
     $("#process-diff-btn").click(function(){
         var rgbSelection = hexToRgb($("#diff-color").val());
         drawDiff(rgbSelection.red, rgbSelection.green, rgbSelection.blue);
+        $("#diff-og-container").show();
+        $("#diff-container").show();
     });
 
     $("#diff-intensity").on("input", function(){
