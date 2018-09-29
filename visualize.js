@@ -23,9 +23,10 @@ function loadAllCommits()
 
 function loadImagefromId(commitId, commitId2)
 {
+    var URLName  = "http://raw.githubusercontent.com/agupta1897/ImageDiffTesting/" + commitId + "/bitmoji-20180926060308.png"
     if(commitId2 !== null)
     {
-    var URLName  = "http://raw.githubusercontent.com/agupta1897/ImageDiffTesting/" + commitId + "/bitmoji-20180926060308.png"
+   
     $("#picture").attr("src", URLName);
         $("#picture2").show()
         URLName  = "http://raw.githubusercontent.com/agupta1897/ImageDiffTesting/" + commitId2 + "/bitmoji-20180926060308.png"
@@ -33,6 +34,7 @@ function loadImagefromId(commitId, commitId2)
     }
     else
     {
+        $("#picture").attr("src", URLName);
         $("#picture2").hide()
     }
     }
@@ -56,6 +58,10 @@ $(document).ready(function(){
         if (($('#slider').val())>0 && ($('#slider').val())<commitIds.length)
         {
         loadImagefromId(commitIds[$('#slider').val()-1],commitIds[$('#slider').val()])
+        }
+        else if($('#slider').val() == commitIds.length)
+        {
+            loadImagefromId(commitIds[$('#slider').val()-1],null)
         }
         else
         {
