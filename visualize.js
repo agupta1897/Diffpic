@@ -14,6 +14,8 @@ function loadImagefromId(commitId1, commitId2)
     URLName  = "http://raw.githubusercontent.com/damccoy1/picdiff/" + commitId2 + "/friends_on_a_cooler.png"
     $("#picture2").attr("src",URLName);
     drawImageFromUrl(URLName, pic2, "#pic2-container");
+    $("#diff-container").show();
+    $("#diff-tools").fadeIn();
     }
     else
     {
@@ -21,6 +23,8 @@ function loadImagefromId(commitId1, commitId2)
         drawImageFromUrl(URLName, pic1, "#pic1-container");
         $("#picture1Label").html(commitId1.substring(0,5));
         $("#picture2Container").hide();
+        $("#diff-container").hide();
+        $("#diff-tools").fadeOut();
     }
     }
 
@@ -33,6 +37,7 @@ function loadImagefromId(commitId1, commitId2)
 // }
 var img1Loaded = false;
 var img2Loaded = false;
+var pic1Data, pic2Data;
 
 function updateImages() {
     img1Loaded = false;
@@ -55,15 +60,44 @@ function drawImageFromUrl(url, pic, container){
     img = new Image();
     img.onload = function() {
         URL.revokeObjectURL(this.src);
-        pic.getContext("2d").drawImage(this, 0, 0, img.width, img.height, 0, 0, pic.width, pic.height);
-        if (container === "#pic1-container")
+        var picWidth = img.width;
+        var picHeight = img.height;
+        var scale = 1;
+        var yOffset = 0;
+        var xOffset = 0;
+        if (img.width > img.height){
+            if (img.width > pic.width){
+                scale = pic.width / img.width;
+            }
+            else {
+                scale = img.width / pic.width;
+            }
+            yOffset = Math.round((pic.height - Math.round(img.height * scale)) / 2);
+        }
+        else {
+            if (img.height > pic.height)
+            scale = pic.height / img.height;
+            else {
+                scale = img.height / pic.height;
+            }
+            xOffset = Math.round((pic.width - Math.round(img.width * scale)) / 2);
+        }
+        pic.getContext("2d").drawImage(this, 0, 0, img.width, img.height, xOffset, yOffset, Math.round(picWidth * scale), Math.round(picHeight * scale));
+        if (container === "#pic1-container") {
             img1Loaded = true;
+            pic1Data = pic1.getContext("2d").getImageData(0, 0, pic1.width, pic1.height);
+        }
         else {
             img2Loaded = true;
+            pic2Data = pic2.getContext("2d").getImageData(0, 0, pic2.width, pic2.height);
         }
         if (img1Loaded && img2Loaded) {
             var rgbSelection = hexToRgb($("#diff-color").val());
-            drawDiff(rgbSelection.red, rgbSelection.green, rgbSelection.blue);          
+            picWidth = pic1.width;
+            picHeight = pic1.height;
+            scale = 1;
+            drawDiff(rgbSelection.red, rgbSelection.green, rgbSelection.blue, scale); 
+            diffBack.getContext("2d").drawImage(pic1, 0, 0, pic1.width, pic1.height, 0, 0, Math.round(picWidth * scale), Math.round(picHeight * scale));        
         }
     }
     img.src = url;
@@ -72,10 +106,7 @@ function drawImageFromUrl(url, pic, container){
 }
 
 function drawDiff(red, green, blue) {
-    var pic1Data = pic1.getContext("2d").getImageData(0, 0, pic1.width, pic1.height);
     var data1 = pic1Data.data;
-    var pic2Data = pic2.getContext("2d").getImageData(0, 0, pic1.width, pic1.height);
-    diffBack.getContext("2d").drawImage(pic2, 0, 0, diffBack.width, diffBack.height, 0, 0, diffBack.width, diffBack.height);
     var data2 = pic2Data.data;
     for(var i = 0; i < data1.length; i += 4) {
         if (data1[i] != data2[i] || data1[i + 1] != data2[i + 1] || data1[i + 2] != data2[i + 2]){
@@ -118,7 +149,5 @@ $(document).ready(function(){
     $('#slider').on('input', function(){
         console.log($('#slider').val());
         updateImages();
-        var rgbSelection = hexToRgb($("#diff-color").val());
-        drawDiff(rgbSelection.red, rgbSelection.green, rgbSelection.blue);
         });
 });
