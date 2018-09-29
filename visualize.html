@@ -3,18 +3,16 @@
         <style>
         </style>
         <title>Visualize Differences</title>
-        <script src="js/jquery-3.3.1.min.js"></script>
         <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
         <script type="text/javascript" src="js/picdiff.js"></script>
         <script src="visualize.js"></script>
-        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
-
-      <!-- Compiled and minified CSS -->
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-   <!-- Compiled and minified JavaScript -->
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>  
         <script src="js/jscolor.js"></script>   
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>  
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="css/styles.css" /> 
     </head>
     <body>         
@@ -47,7 +45,7 @@
                 <canvas id="diffBack" width=500 height=300 style="margin-left:auto;margin-right: auto"></canvas>
             </div>
         </div>
-        <div id="diff-container" class="row justify-content-center" style="margin-top:-300; z-index: 0;">
+        <div id="diff-container" class="row justify-content-center" style="margin-top:-320; z-index: 0;">
             <div class="col-12">
                 <canvas id="diffpic" width=500 height=300 style="margin-left:auto;margin-right: auto"></canvas>
             </div>
@@ -64,31 +62,39 @@
             </div>
         </div>
         <div id="diff-tools" class="container">
-            <div class="row justify-content-center">
+            <div class="row justify-content-center roomy-row">
                 <div class="col-8" style="text-align: center">
-                    <p>Use Differentiated Diff</p>
-                    <label class="switch">
-                        <input type="checkbox" id="soft-diff-slider">
-                        <span class="switch-slider"></span>
-                    </label>                
-                </div>
-                <div class="col-8" style="text-align: center">
-                    Diff color: <input id="diff-color" class="jscolor" value="ff0000">
+                    <div class="switch">
+                        <label>
+                            <span class="readable-label">Use Differentiated Diff</span>
+                            <input type="checkbox" id="soft-diff-slider">
+                            <span class="lever"></span>
+                        </label>
+                        <span class="readable-label-dscr"><br>(This helps for images that have been compressed, <br>or had a filter applied)</span>
+                    </div>                 
                 </div>
             </div>
-            <div class="row  justify-content-center">
+            <div class="row justify-content-center roomy-row">
+                <div class="col-8" style="text-align: center">
+                    <span class="readable-label">Diff color: </span>
+                    <input id="diff-color" class="jscolor" value="ff0000" style="width:100px; border-radius: 30px; padding-left:15px">
+                </div>        
+            </div>
+            <div class="row justify-content-center roomy-row">
                 <div class="col-10" style="text-align: center">
-                    <p>Diff intensity:</p>
+                    <span class="readable-label">Diff intensity</span>
                     <input type="range" min="0" max="100" value="100" class="slider" id="diff-intensity">            
                 </div>
             </div>
-            <div class="row justify-content-center">
+            <div class="row justify-content-center roomy-row">
                 <div class="col-8" style="text-align: center">
-                    <p>Show image:</p>
-                    <label class="switch">
-                        <input type="checkbox" id="image-chkbx" checked>
-                        <span class="switch-slider"></span>
-                    </label>                  
+                    <div class="switch">
+                        <label>
+                            <span class="readable-label">Show image behind diff</span>
+                            <input type="checkbox" id="image-chkbx" checked>
+                            <span class="lever"></span>
+                        </label>
+                    </div>               
                 </div>
             </div>            
         </div>
