@@ -84,6 +84,7 @@ $(document).ready(function(){
 
     $("#image-chkbx").on("click", function(){
         $("#diffBack").toggle();
+        $("#diff-og-container").toggleClass("fixed-height");
     });
 
     $("#diff-color").on("change", function(){
