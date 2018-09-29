@@ -50,6 +50,9 @@ $(document).ready(function() {
         $.each(data, function(index, item){
             html += '<a href="#!" class="collection-item">'+ "<img src=" + item.src + " style=\"height: 50px\">" + "<p>" + item.path + "</p>" +'</a>';
         });
+        if (data.length == 0) {
+            html += '<li href="#!" class="collection-item">' + "No images found in the repository" + '</li>';                    
+        }
         html += '</div>';
         return html;
     }
@@ -78,11 +81,10 @@ $(document).ready(function() {
                                 _img.src="https://raw.githubusercontent.com/" + $("#username-field").val() + "/" + data["text"] + "/" + sha + "/" + res["tree"][i]["path"];
                                 _img.id = i;
                                 _img.path = res["tree"][i]["path"];
-                                _img.setAttribute('style', 'height: 500px');
                                 images.push(_img);
                             }
                         }
-
+                            
                         $('#pagination-container').pagination({
                             dataSource: images,
                             pageSize: 5,
