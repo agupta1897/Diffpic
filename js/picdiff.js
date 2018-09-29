@@ -32,10 +32,10 @@ $(document).ready(function(){
         diffpic.getContext("2d").putImageData(pic1Data, 0, 0);
     }
 
-    $("#pic1-container").hide();
-    $("#pic2-container").hide();
-    $("#diff-og-container").hide();
-    $("#diff-container").hide();
+    // $("#pic1-container").hide();
+    // $("#pic2-container").hide();
+    // $("#diff-og-container").hide();
+    // $("#diff-container").hide();
 
     $("#pic1Input").change(function(e){
         var file = e.target.files[0],

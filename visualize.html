@@ -5,24 +5,67 @@
         <script src="js/jquery-3.3.1.min.js"></script>
         <script src="visualize.js"></script>
         <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/styles.css" />    
     </head>
     <body>         
-        <button id="get-file-btn">Get File from Github</button>
+        <!-- <button id="get-file-btn">Get File from Github</button> -->
         <div id="timeline" class="row justify-content-center" style="width:100%"></div>       
         <div class="row justify-content-center">
             <div class="col-8">
                 <input  class="row" id="slider" type="range" min="0" style="width:100%"/>
             </div>
         </div> 
-        <div class="row justify-content-center">
+        <div class="row justify-content-center" style="margin-top: 10px">
             <div class="col-sm" style="text-align: center" id="picture1Container">
-                <img id="picture1" style="width:300px; text-align: right">
+                <img id="picture1" style="width:500px; text-align: right">
                 <p id="picture1Label"></p>
             </div>
             <div class="col-sm" style="text-align: center" id="picture2Container">
-                <img id="picture2" style="width:300px; text-align: left"> 
+                <img id="picture2" style="width:500px; text-align: left"> 
                 <p id="picture2Label"></p>
             </div>
         </div>
-        <label id = "jsonForCommits" title="" >
+        <label id = "jsonForCommits" title="" ></label>
+        <div id="pic1-container">
+            <canvas id="pic1" width=600 height=400></canvas>
+        </div>
+        <div id="pic2-container"style="width:600; height:400; z-index: 9999">
+            <canvas id="pic2" width=600 height=400></canvas>
+        </div>
+        <div id="diff-og-container"style="width:600; height:400; z-index: 9999">
+            <canvas id="diffBack" width=600 height=400></canvas>
+        </div>
+        <div id="diff-container" style="width:600; height:400; margin-top:-400; z-index: 0;">
+            <canvas id="diffpic" width=600 height=400></canvas>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <p>Use Soft Diff</p>
+                <label class="switch">
+                    <input type="checkbox" id="soft-diff-slider">
+                    <span class="switch-slider"></span>
+                </label>                
+            </div>
+            <div class="col-2">
+                Diff color: <input id="diff-color" class="jscolor" value="ff0000">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <p>Diff intensity:</p>
+                <input type="range" min="0" max="100" value="100" class="slider" id="diff-intensity">            
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <p>Show image:</p>
+                <label class="switch">
+                    <input type="checkbox" id="image-chkbx" checked>
+                    <span class="switch-slider"></span>
+                </label>                  
+            </div>
+        </div>
+        <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+        <script type="text/javascript" src="js/picdiff.js"></script>
+    </body>
 </html>
