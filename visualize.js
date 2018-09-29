@@ -69,11 +69,25 @@ function updateImages() {
 $(document).ready(function(){
     $("#picture2Container").hide();
     $("#slider").hide();
-    $("#get-file-btn").click(function(){
-        loadAllCommits();
-    });
+    loadAllCommits();
     $('#slider').on('input', function(){
         console.log($('#slider').val());
         updateImages();
         });
+    var img = new Image();
+    img.onload = function() {
+        URL.revokeObjectURL(this.src);
+        pic1.getContext("2d").drawImage(this, 0, 0, img.width, img.height, 0, 0, pic1.width, pic1.height);
+    }
+    img.src = "http://raw.githubusercontent.com/damccoy1/picdiff/0c9c387d9922b23780afb42f1bdd7f0f316d3d6e/friends_on_a_cooler.png";
+    img.crossOrigin = "Anonymous";
+    $("#pic1-container").show();
+    img = new Image();
+    img.onload = function() {
+        URL.revokeObjectURL(this.src);
+        pic2.getContext("2d").drawImage(this, 0, 0, img.width, img.height, 0, 0, pic2.width, pic2.height);
+    }
+    img.src = "http://raw.githubusercontent.com/damccoy1/picdiff/0c9c387d9922b23780afb42f1bdd7f0f316d3d6e/friends_on_a_cooler.png";
+    img.crossOrigin = "Anonymous";
+    $("#pic2-container").show();
 })
