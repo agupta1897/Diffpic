@@ -7,9 +7,9 @@ function loadImagefromId(commitId1, commitId2)
     if(commitId2 != null){
         $("#picture1").attr("src", URLName);
         drawImageFromUrl(URLName, pic1, "#pic1-container");
-        $("#picture1Label").html(commitId1.substring(0,5));
+        $("#picture1Label").html("<b>" + commitId1.substring(0,5) + "</b>");
         $("#picture2Container").show();
-        $("#picture2Label").html(commitId2.substring(0,5));
+        $("#picture2Label").html("<b>" + commitId2.substring(0,5) + "</b>");
         URLName  = "https://cors-anywhere.herokuapp.com/http://raw.githubusercontent.com/damccoy1/picdiff/" + commitId2 + "/friends_on_a_cooler.png"
         $("#picture2").attr("src",URLName);
         drawImageFromUrl(URLName, pic2, "#pic2-container");
@@ -100,6 +100,8 @@ function drawImageFromUrl(url, pic, container){
             pic2Data = pic2.getContext("2d").getImageData(0, 0, pic2.width, pic2.height);
         }
         if (img1Loaded && img2Loaded) {
+            $("#picture1Label").html($("#picture1Label").html() + " (" + img1Height + "x" + img1Width + ")");
+            $("#picture2Label").html($("#picture2Label").html() + " (" + img2Height + "x" + img2Width + ")");
             if (img1Height == img2Height && img1Width == img2Width){
                 var rgbSelection = hexToRgb($("#diff-color").val());
                 picWidth = pic1.width;
