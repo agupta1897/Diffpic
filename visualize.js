@@ -1,6 +1,6 @@
 var commitIds = new Array();
 var commitDates = new Array();
-
+var timelineIndex = 0;
 function loadImagefromId(commitId1, commitId2)
 {
     var URLName  = "http://raw.githubusercontent.com/damccoy1/picdiff/" + commitId1 + "/friends_on_a_cooler.png"
@@ -136,6 +136,52 @@ convertedHours = ((hours + 11) % 12 + 1);
 var result = convertedHours + ":" +string.split(':')[1] +" " + suffix;
 return result;
 }
+function updateTimelineToLeft()
+{
+    if(timelineIndex === 0)
+    {
+    }
+    else
+    {
+        timelineIndex = timelineIndex -1;
+        createTimelineMarkUp();
+        if($("#slider").val() != commitIds.length)
+    {
+        console.log("Previous:" + $("#slider").val());
+        $("#slider").val(parseInt($("#slider").val()) + 1);
+        console.log("After:" + $("#slider").val());
+        updateImages();
+    }
+    }
+}
+
+function updateTimelineToRight()
+{
+    if((timelineIndex + 4) < commitIds.length)
+    {
+        timelineIndex++;
+        createTimelineMarkUp();
+        if($("#slider").val() != 0)
+    {
+     // $("#slider").attr("value", $("#slider").val()-1 );
+     $("#slider").val(parseInt($("#slider").val()) - 1);
+     //updateImages();
+    }
+    }
+    
+
+}
+
+function createTimelineMarkUp( )
+{
+    document.getElementById("timeline").innerHTML = "";
+    for ( i = timelineIndex ; i< timelineIndex + 4; i++)
+    {
+    $("#timeline").append(" <div class='col' style='text-align:center; font-size:15;'>" + commitIds[i].substring(0, 5) 
+    +
+      "<div class='col' style='text-align:center; font-size:10;'>" + commitDates[i] +" </div></div>");
+    }
+}
 
 $(document).ready(function(){
     function loadAllCommits() {
@@ -146,11 +192,12 @@ $(document).ready(function(){
             {
                 commitIds.push(data[i]["sha"]);
                 commitDates.push( data[i]["commit"]["author"]["date"].substring(0,10) + " " + convertTimeto12Hours( data[i]["commit"]["author"]["date"].substring(11,data[i]["commit"]["author"]["date"].length-1)));
-                $("#timeline").append(" <div class='col' style='text-align:center; font-size:15;'>" + commitIds[commitDates.length-1].substring(0, 5) 
-                +
-                  "<div class='col' style='text-align:center; font-size:10;'>" + commitDates[commitDates.length-1] +" </div></div>");
+                // $("#timeline").append(" <div class='col' style='text-align:center; font-size:15;'>" + commitIds[commitDates.length-1].substring(0, 5) 
+                // +
+                //   "<div class='col' style='text-align:center; font-size:10;'>" + commitDates[commitDates.length-1] +" </div></div>");
             }
-                $("#slider").attr("max", data.length);
+            createTimelineMarkUp();
+                
                 $("#slider").attr("value", data.length/2);   
             updateImages();  
         });
@@ -158,8 +205,17 @@ $(document).ready(function(){
     }
     $("#slider").hide();
     loadAllCommits();
-    $('#slider').on('input', function(){
+
+    $("#slider").on('input', function(){
         console.log($('#slider').val());
         updateImages();
         });
+
+    $("#btnLeftClick").click('input', function(){
+        updateTimelineToLeft();
+    });
+
+    $("#btnRightClick").click('input', function(){
+        updateTimelineToRight();
+    });
 });

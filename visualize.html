@@ -9,16 +9,28 @@
         <script src="visualize.js"></script>
         <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="css/styles.css" /> 
+
+      <!-- Compiled and minified CSS -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+   <!-- Compiled and minified JavaScript -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>  
         <script src="js/jscolor.js"></script>   
     </head>
     <body>         
         <!-- <button id="get-file-btn">Get File from Github</button> -->
-        <div id="timeline" class="row justify-content-center" style="width:80%; margin-left: auto;margin-right: auto"></div>       
+       
+        <div class="row justify-content-center">
+        <button class="btn-floating btn-medium waves-effect waves-light red" id= "btnLeftClick"><i class="material-icons">keyboard_arrow_left</i></button>
+        <div id="timeline" class="row justify-content-center" style="width:80%; margin-left: auto;margin-right: auto"></div>      
+        <button class="btn-floating btn-medium waves-effect waves-light red" id="btnRightClick"><i class="material-icons">keyboard_arrow_right</i></button>
+        </div>
         <div class="row justify-content-center" style="width:80%; margin-left: auto;margin-right: auto">
             <div class="col-12 canvas-container">
-                <input  class="row" id="slider" type="range" min="0" style="width:100%"/>
+                <input  class="row" id="slider" type="range" min="0" max="4" style="width:100%"/>
             </div>
         </div> 
+  
         <div class="row justify-content-center" style="margin-top: 10px">
             <div class="col-sm" style="text-align: center" id="picture1Container">
                     <canvas id="pic1" width=500 height=300 class="canvas-container"></canvas>
