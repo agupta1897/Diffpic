@@ -1,14 +1,27 @@
 <!doctype html>
 <html ng-app>
   <head>
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.4/angular.min.js"></script>
+    <script type="text/javascript" src="js/select2.js"></script>
+
   </head>
   <body>
     <div>
       <label>Enter Username:</label>
-      <input type="text" ng-model="userName" placeholder="Enter a username here">
-      <hr>
-      <h1>Hello {{yourName}}!</h1>
+      <input type="text" ng-model="userName" placeholder="Enter a username here" id="username-field">
+      <button id="submit-username">Submit</button>
+
     </div>
+
+
+    <div>
+        <select id="git-repo" name="repo" class="git-repo" multiple="multiple" style="width: 25%">
+
+        </select>
+    </div>
+
   </body>
 </html>
