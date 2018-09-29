@@ -1,1 +1,46 @@
 hello world
+
+Pic Diff
+
+Copy and paste link to see demo image:
+blob:https://imgur.com/f809fd8d-bd0e-4272-b8db-8f3e96391867
+ 
+Allow for difference to have an alpha strength or a color strength for difference
+ 
+Get an image with
+raw.githubusercontent.com/ {user}/{repo}/{sha}/{path_to_image}
+ 
+Get commit history of file with
+api.github.com/repos/ {user}/{repo}/commits?path={path_to_image}
+ 
+Get all files with
+api.github.com/repos/ {user}/{repo}/git/trees/{sha}?recursive=1
+ 
+Start with comparing two hard-coded pulled commits
+Show list of public repos for given username
+ 
+Allow for toggling "hard" color change and overlay
+Allow for hex color picker
+ 
+Helpful research
+ 
+Github's Image Diff Implementation
+Rendering and diffing images - User Documentation
+ 
+Sample image diff command line program
+“Diff” an image using ImageMagick - Stack Overflow
+Image diffs with git – Aki Koskinen
+ 
+How to manipulate image pixels in Javascript
+Pixel manipulation with canvas - Web APIs | MDN
+ 
+UI Tools
+How To Create Range Sliders
+Slider | jQuery UI
+jscolor - JavaScript Color Picker (Palette) with touch support
+ 
+ 
+GitHub API
+Git Blobs | GitHub Developer Guide
+Is it possible to get commits history for one file in github api? - Stack Overflow
+Commits | GitHub Developer Guide
