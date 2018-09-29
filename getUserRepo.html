@@ -7,34 +7,38 @@
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
-    <script tpye="text/javascript" src="js/pagination.min.js"></script>
-    <!-- <script type="text/javascript" src="js/jquery-ui.min.js"></script> -->
-
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.4/angular.min.js"></script>
-    <script type="text/javascript" src="js/select2.js"></script>
+
+
+    <title>Diff Pics</title>
+
 
   </head>
   <body>
-    <div class="row">
-      <div class="col-4"> 
-        <label>Enter Username:</label>
-        <input type="text" ng-model="userName" style = "width: 25%" placeholder="Enter a username here" id="username-field">
-      </div>
+    <h1 class="jumbotron text-center">Diff Pics</h1>
+
+    <div class="container">
+      <div class="row">
+        <div class="col"> 
+          <label>Enter Username:</label>
+          <input type="text" ng-model="userName" style = "width: 100 px" placeholder="Enter a username here" id="username-field">
+        </div>
 
 
-      <div class="col-8">
-          <label> Enter your GitHub Repo: </label>
-          <select id="git-repo" name="repo" class="git-repo" style="width: 800px; height: 10px">
+        <div class="col">
+            <label for="id_label_single"> 
+            
+            Enter your GitHub Repo: 
+            <br></br>
+            <select id="git-repo" name="repo" class="git-repo" style="height: 50px"> </select>
 
-          </select>
+            </label>
+        </div>
       </div>
     </div>
+
+    
+    
     
 
     <!-- Create collection and display image -->
@@ -48,5 +52,14 @@
 
     <div id="pagination-container">
     </div>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script tpye="text/javascript" src="js/pagination.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.4/angular.min.js"></script>
+    <script type="text/javascript" src="js/select2.js"></script>
   </body>
 </html>

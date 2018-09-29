@@ -48,7 +48,7 @@ $(document).ready(function() {
     function simpleTemplating(data) {
         var html = '<div id="collection">';
         $.each(data, function(index, item){
-            html += '<a href="#!" class="collection-item">'+ "<img src=" + item.src + " style=\"height: 350px\">" + "<p>" + item.path + "</p>" +'</a>';
+            html += '<a href="#!" class="collection-item">'+ "<img src=" + item.src + " style=\"height: 50px\">" + "<p>" + item.path + "</p>" +'</a>';
         });
         html += '</div>';
         return html;
@@ -64,6 +64,7 @@ $(document).ready(function() {
             method: "GET",
             dataType: "json",
             success: function(res) {
+                images = [];
                 console.log(res);
                 var sha = res[0]["sha"];
                 $.ajax({
