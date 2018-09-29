@@ -27,6 +27,7 @@ $(document).ready(function(){
         var pic1Data = pic1.getContext("2d").getImageData(0, 0, pic1.width, pic1.height);
         var data1 = pic1Data.data;
         var pic2Data = pic2.getContext("2d").getImageData(0, 0, pic1.width, pic1.height);
+        diffBack.getContext("2d").drawImage(pic2, 0, 0, pic2.width, pic2.height, 0, 0, diffBack.width, diffBack.height);
         var data2 = pic2Data.data;
         for(var i = 0; i < data1.length; i += 4) {
             if (data1[i] != data2[i] || data1[i + 1] != data2[i + 1] || data1[i + 2] != data2[i + 2]){
@@ -47,7 +48,11 @@ $(document).ready(function(){
     });
 
     $("#diff-intensity").on("input", function(){
-        $("#pic2").css({"opacity" : $("#diff-intensity").val() / 100, "z-index" : 0});
+        $("#diff-container").css({"opacity" : $("#diff-intensity").val() / 100, "z-index" : 0});
+    });
+
+    $("#image-chkbx").on("input", function(){
+        $("#diffBack").toggle();
     });
 });
 

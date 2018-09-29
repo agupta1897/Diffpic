@@ -112,15 +112,25 @@
         <div>
             <canvas id="pic1" width=600 height=400></canvas>
         </div>
-        <div id="pic2-container">
+        <div id="pic2-container"style="width:600; height:400; z-index: 9999">
             <canvas id="pic2" width=600 height=400></canvas>
         </div>
-        <div id="diff-container" style="margin-top:-400; z-index: 9999;">
+        <div id="diff-og-container"style="width:600; height:400; z-index: 9999">
+            <canvas id="diffBack" width=600 height=400></canvas>
+        </div>
+        <div id="diff-container" style="width:600; height:400; margin-top:-400; z-index: 0;">
             <canvas id="diffpic" width=600 height=400></canvas>
         </div>
-        <div class="slidecontainer">
+        <div class="diff-slidecontainer">
             <p>Diff intensity:</p>
-            <input type="range" min="0" max="100" value="50" class="slider" id="diff-intensity">
+            <input type="range" min="0" max="100" value="100" class="slider" id="diff-intensity">
+        </div>
+        <div class="image-slidecontainer">
+            <p>Show image:</p>
+            <label class="switch">
+                <input type="checkbox" id="image-chkbx" checked>
+                <span class="switch-slider"></span>
+            </label>          
         </div>
         <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
         <script type="text/javascript" src="js/picdiff.js"></script>
