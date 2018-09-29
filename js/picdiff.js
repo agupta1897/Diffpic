@@ -1,14 +1,25 @@
+function readURL(input, picName) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $(picName)
+                .attr('src', e.target.result)
+                .width('300px');
+            }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
 $(document).ready(function(){
-    $("#pic1Input").change(function(event){
-        $('#pic1')
-            .attr('src', event.target.result)
-            .width(150)
-            .height(200);
+    $("#pic1Input").change(function(){
+        readURL(this, "#pic1");
     });
-    $("#pic2Input").change(function(event){
-        $('#pic2')
-            .attr('src', event.target.result)
-            .width(150)
-            .height(200);
+    
+    $("#pic2Input").change(function(){
+        readURL(this, "#pic2");
     });
 });
+
+
