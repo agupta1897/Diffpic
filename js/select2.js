@@ -1,5 +1,6 @@
 $(document).ready(function() {
 
+    $("#img-table").hide();
     
     $("#username-field").on("input", function (e) {
         addRepo();
@@ -10,9 +11,8 @@ $(document).ready(function() {
     });
 
     $("#git-repo").select2({
-        
         placeholder: {
-            id: '-1', // the value of the option
+            id: '0', // the value of the option
             text: 'Enter repo name'
           }
     });
@@ -66,6 +66,7 @@ $(document).ready(function() {
             method: "GET",
             dataType: "json",
             success: function(res) {
+                $("#img-table").fadeIn();
                 images = [];
                 var sha = res[0]["sha"];
                 $.ajax({
