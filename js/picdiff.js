@@ -45,6 +45,10 @@ $(document).ready(function(){
         }
         diffpic.getContext("2d").putImageData(pic1Data, 0, 0);
     });
+
+    $("#diff-intensity").on("input", function(){
+        $("#pic2").css({"opacity" : $("#diff-intensity").val() / 100, "z-index" : 0});
+    });
 });
 
 
