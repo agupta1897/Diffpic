@@ -1,10 +1,34 @@
+var loggedInUser = '';
+var loggenInUserRepo ;
+var repoSelect = $('#git-repo');
 $(document).ready(function() {
 
     $("#img-table").hide();
 
     $("#username-field").on("input", function (e) {
+        if($("#username-field").val() !== '' &&  $("#username-field").val() === loggedInUser )
+        {
+            addPrivateRepos();
+        }
+        else
+        {
         addRepo();
+        }
     });
+
+function addPrivateRepos()
+{
+    $("#git-repo").prop("disabled", false);
+                repoSelect.empty();
+                repoSelect.val(null).trigger('change');
+    for (i = 0; i< loggenInUserRepo.length; i++)
+    {
+        
+        var newOption = new Option(loggenInUserRepo[i]["name"], i, false, false);
+        repoSelect.append(newOption).trigger('change');
+        
+    }
+}
 
     $("#git-username").select2({
         maximumSelectionLength: 1
@@ -72,13 +96,14 @@ $(document).ready(function() {
 
     function accessTokenCall ( access_tokenvalue)
     {
-        var data123;
+        var data;
         $.ajax({
             url: "https://api.github.com/user/repos?access_token=" + access_tokenvalue,
             method: "GET",
             success: function(res) {
-                data123 = res;
-                console.log(res);
+                data = res;
+                loggedInUser = data[0]["owner"][login];
+                loggenInUserRepo = data;
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 alert(xhr.status);
@@ -88,7 +113,7 @@ $(document).ready(function() {
     }
 
 
-    var repoSelect = $('#git-repo');
+   
 
     function addRepo() {
         $.ajax({
