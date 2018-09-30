@@ -36,6 +36,7 @@ $(document).ready(function() {
             success: function(res) {
                 tokenavailable  = 1;
                 access_token = res;
+                accessTokenCall(access_token.split("&")[0].split("=")[1])
                 console.log(res);
             },
             error: function (xhr, ajaxOptions, thrownError) {
@@ -44,7 +45,7 @@ $(document).ready(function() {
             }
         })
         // setTimeout(nothing123(), 3000);
-setTimeout(accessTokenCall(access_token.split("&")[0].split("=")[1]),3000);
+// setTimeout(accessTokenCall(access_token.split("&")[0].split("=")[1]),3000);
         // if(tokenavailable === 1)
         // {
         // var access_tokenvalue = access_token.split("&")[0].split("=")[1];
