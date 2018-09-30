@@ -23,7 +23,7 @@ function addPrivateRepos()
                 repoSelect.val(null).trigger('change');
     for (i = 0; i< loggenInUserRepo.length; i++)
     {
-        
+        console.log(loggenInUserRepo[i]["name"]);
         var newOption = new Option(loggenInUserRepo[i]["name"], i, false, false);
         repoSelect.append(newOption).trigger('change');
         
