@@ -156,11 +156,11 @@ function drawImageFromUrl(url, pic, container, onlyOnePicDisplayed){
 function drawDiff(red, green, blue) {
     var data1 = pic1Data.data;
     var data2 = pic2Data.data;
-    for(var i = 0; i < data1.length; i += timelinelength) {
+    for(var i = 0; i < data1.length; i += 4) {
         if (data1[i] != data2[i] || data1[i + 1] != data2[i + 1] || data1[i + 2] != data2[i + 2]){
             var alpha = 255;
             if ($("#soft-diff-slider")[0].checked){
-                alpha = ((Math.abs(data1[i] - data2[i])+ Math.abs(data1[i + 1] - data2[i + 1])+ Math.abs(data1[i + 2] - data2[i + 2])) / 3);
+                alpha = ((Math.abs(data2[i] - data1[i])+ Math.abs(data2[i + 1] - data1[i + 1])+ Math.abs(data2[i + 2] - data1[i + 2])) / 3);
             }
             data1[i] = red;     // red
             data1[i + 1] = green; // green]
