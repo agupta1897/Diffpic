@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
     $("#img-table").hide();
-    
+
     $("#username-field").on("input", function (e) {
         addRepo();
     });
@@ -43,7 +43,8 @@ $(document).ready(function() {
                 alert(thrownError);
             }
         })
-setTimeout(accessTokenCall(access_token.split("&")[0].split("=")[1]),200);
+        // setTimeout(nothing123(), 3000);
+setTimeout(accessTokenCall(access_token.split("&")[0].split("=")[1]),3000);
         // if(tokenavailable === 1)
         // {
         // var access_tokenvalue = access_token.split("&")[0].split("=")[1];
@@ -62,6 +63,11 @@ setTimeout(accessTokenCall(access_token.split("&")[0].split("=")[1]),200);
         //     }
         // })
  }
+//  function nothing123()
+//  {
+//      var x = 3;
+//      console.log(x);
+//  }
 
     function accessTokenCall ( access_tokenvalue)
     {
@@ -114,7 +120,7 @@ setTimeout(accessTokenCall(access_token.split("&")[0].split("=")[1]),200);
             html += '<a href="#!" class="collection-item">'+ "<img src=" + item.src + " style=\"height: 50px\">" + "<p>" + item.path + "</p>" +'</a>';
         });
         if (data.length == 0) {
-            html += '<li href="#!" class="collection-item">' + "No images found in the repository" + '</li>';                    
+            html += '<li href="#!" class="collection-item">' + "No images found in the repository" + '</li>';
         }
         html += '</div>';
         return html;
@@ -148,7 +154,7 @@ setTimeout(accessTokenCall(access_token.split("&")[0].split("=")[1]),200);
                                 images.push(_img);
                             }
                         }
-                            
+
                         $('#pagination-container').pagination({
                             dataSource: images,
                             pageSize: 5,
@@ -159,12 +165,12 @@ setTimeout(accessTokenCall(access_token.split("&")[0].split("=")[1]),200);
                                 $('#data-container').html(html);
                             }
                         });
-                    } 
+                    }
                 });
 
-                
-            } 
-        });    
+
+            }
+        });
     });
 
 
