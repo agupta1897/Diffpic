@@ -26,7 +26,6 @@ $(document).ready(function() {
     redirect_uri="https://damccoy1.github.io/diffpic/";
     console.log("test link");
     console.log(window.location.href);
-    var tokenavailable = 0;
     if (url.includes("code")) {
         code = url.substring(url.length-20);
         console.log(code)
@@ -34,7 +33,6 @@ $(document).ready(function() {
             url: "https://github.com/login/oauth/access_token?client_id=b4b4312c8ea7ec470c34&client_secret=fcd07f4c9e25b18c92fb6e0d0766c0a5e201ca79&code=" + code,
             method: "POST",
             success: function(res) {
-                tokenavailable  = 1;
                 access_token = res;
                 console.log(res);
             },
@@ -44,8 +42,6 @@ $(document).ready(function() {
             }
         })
 
-        if(tokenavailable === 1)
-        {
         var access_tokenvalue = access_token.split("&")[0].split("=")[1];
         console.log(access_tokenvalue);
         var data123;
@@ -61,7 +57,6 @@ $(document).ready(function() {
                 alert(thrownError);
             }
         })
-    }
     }
 
 
