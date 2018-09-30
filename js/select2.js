@@ -17,7 +17,7 @@ $(document).ready(function() {
           }
     });
 
-    var clientID = "b4b4312c8ea7ec470c34";
+    /*var clientID = "b4b4312c8ea7ec470c34";
     var clientSecret = "fcd07f4c9e25b18c92fb6e0d0766c0a5e201ca79";
     var code, url, access_token;
     $("#signinButton").attr('href', "https://github.com/login/oauth/authorize?client_id=" + clientID + "&allow_signup=false");
@@ -39,7 +39,7 @@ $(document).ready(function() {
                 console.log(res);
             }
         })
-    }
+    } */
 
     var repoSelect = $('#git-repo');
 
