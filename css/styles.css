@@ -98,11 +98,3 @@ canvas {
 .roomy-row {
     margin-top: 20px;
 }
-
-#pic1Box {
-    float: right;
-}
-
-#pic2Box {
-    float: left;
-}
