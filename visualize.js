@@ -1,16 +1,17 @@
 var commitIds = new Array();
 var commitDates = new Array();
 var timelineIndex = 0;
+var username, repository, picName;
 function loadImagefromId(commitId1, commitId2)
 {
-    var URLName  = "https://cors-anywhere.herokuapp.com/http://raw.githubusercontent.com/damccoy1/picdiff/" + commitId1 + "/friends_on_a_cooler.png"
+    var URLName  = "https://cors-anywhere.herokuapp.com/http://raw.githubusercontent.com/" + username + "/" + repository + "/" + commitId1 + "/" + picName;
     if(commitId2 != null){
         $("#picture1").attr("src", URLName);
         drawImageFromUrl(URLName, pic1, "#pic1-container");
         $("#picture1Label").html("<b>" + commitId1.substring(0,5) + "</b>");
         $("#picture2Container").show();
         $("#picture2Label").html("<b>" + commitId2.substring(0,5) + "</b>");
-        URLName  = "https://cors-anywhere.herokuapp.com/http://raw.githubusercontent.com/damccoy1/picdiff/" + commitId2 + "/friends_on_a_cooler.png"
+        URLName  = "https://cors-anywhere.herokuapp.com/http://raw.githubusercontent.com/" + username + "/" + repository + "/" + commitId2 + "/" + picName;
         $("#picture2").attr("src",URLName);
         drawImageFromUrl(URLName, pic2, "#pic2-container");
         $("#diff-container").show();
@@ -249,8 +250,9 @@ function createTimelineMarkUp( )
 }
 
 $(document).ready(function(){
+    $("#diff-body-container").hide();
     function loadAllCommits() {
-        var URLName  = "https://api.github.com/repos/damccoy1/picdiff/commits?path=friends_on_a_cooler.png"
+        var URLName  = "https://api.github.com/repos/"+ username + "/" + repository + "/commits?path=" + picName;
         $.get(URLName, function(data){        
             commitIds = [];
             for( i = data.length-1; i > -1; i--)
@@ -285,5 +287,21 @@ $(document).ready(function(){
 
     $("#btnRightClick").click('input', function(){
         updateTimelineToRight();
+    });
+
+    $(document).on("click", ".collection-item", function(){
+        console.log($(this).text());
+        $("#diff-body-container").fadeIn();
+        $('html, body').animate({
+            scrollTop: $("#diff-body-container").offset().top
+        }, 900, 'swing', function() {
+
+            // Add hash (#) to URL when done scrolling (default click behavior)
+            // window.location.hash = target;
+        });
+        picName = $(this).text();
+        username = $("#username-field").val();
+        repository = $('#git-repo').select2('data')[0].text;
+        loadAllCommits();
     });
 });

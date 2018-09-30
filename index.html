@@ -10,97 +10,150 @@
         <!-- Compiled and minified CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="https://pagination.js.org/dist/2.1.4/pagination.css">
+        <link rel="stylesheet" type="text/css" href="css/getUserRepo.css" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
         <!-- Compiled and minified JavaScript -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>  
+        <script tpye="text/javascript" src="js/pagination.min.js"></script>
         <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="css/styles.css" /> 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.4/angular.min.js"></script>
+        <script type="text/javascript" src="js/select2.js"></script>    
     </head>
     <body>         
-        <!-- <button id="get-file-btn">Get File from Github</button> -->
+        <div id="github-selection">
+                <h1 class="jumbotron text-center">Diff Pics</h1>
+
+                <div class="container">
+                  <div class="row">
+                    <div class="col"> 
+                      <label for="id_label_single" class="selectLabel">Enter Username:</label>
+                      <input type="text" ng-model="userName" style = "width: 70 px" placeholder="Enter a username here" id="username-field">
+                    </div>
+            
+            
+                    <div class="col">
+                        <label for="id_label_single" class="selectLabel"> 
+                        
+                        Enter your GitHub Repo: 
+                        <select id="git-repo" name="repo" class="git-repo" style="height: 50px"> </select>
+            
+                        </label>
+                    </div>
+                  </div>
+                </div>
+            
+                
+                
+                
+                <div id="img-table" class="row justify-content-center">
+                  <div class="col-10">
+                  <!-- Create collection and display image -->
+                  <div class="collection" id="slides">
+            
+                    </div>  
+                  
+                    <!-- Create paginator -->
+                    <div class="collection" id="data-container">
+                    </div>
+                
+                    <div id="pagination-container">
+                  </div>      
+                  </div>
+                </div>
+        </div>
+        <div id="diff-body-container">
+                    <!-- <button id="get-file-btn">Get File from Github</button> -->
        <br>
-        <div class="row justify-content-center">
-        <button class="btn-floating btn-medium waves-effect waves-light red" id= "btnLeftClick"><i class="material-icons">keyboard_arrow_left</i></button>
-        <div id="timeline" class="row justify-content-center" style="width:80%; margin-left:15; margin-right: 15"></div>      
-        <button class="btn-floating btn-medium waves-effect waves-light red" id="btnRightClick"><i class="material-icons">keyboard_arrow_right</i></button>
-        </div>
-        <div class="row justify-content-center" style="width:80%; margin-left: auto;margin-right: auto">
-            <div class="col-12 canvas-container">
-                <input  class="row" id="slider" type="range" min="0" max="4" style="width:100%"/>
-            </div>
+       <div class="row justify-content-center">
+       <button class="btn-floating btn-medium waves-effect waves-light red" id= "btnLeftClick"><i class="material-icons">keyboard_arrow_left</i></button>
+       <div id="timeline" class="row justify-content-center" style="width:80%; margin-left:15; margin-right: 15"></div>      
+       <button class="btn-floating btn-medium waves-effect waves-light red" id="btnRightClick"><i class="material-icons">keyboard_arrow_right</i></button>
+       </div>
+       <div class="row justify-content-center" style="width:80%; margin-left: auto;margin-right: auto">
+           <div class="col-12 canvas-container">
+               <input  class="row" id="slider" type="range" min="0" max="4" style="width:100%"/>
+           </div>
+       </div> 
+ 
+       <div class="row justify-content-center" style="margin-top: 10px">
+           <div class="col-sm" style="text-align: center" id="picture1Container">
+               <div id="pic1Box" class="image-left-style">
+                   <p id="picture1Label" style="text-align:center; background-color:lightgreen; margin:0; padding-bottom: 5px;"></p>
+                   <canvas id="pic1" width=500 height=300 class="canvas-container "></canvas>        
+               </div>
+           </div>
+           <div class="col-sm" style="text-align: center" id="picture2Container">
+               <div id="pic2Box" class="image-right-style">
+                   <p id="picture2Label" style="text-align:center; background-color:lightblue;margin:0; padding-bottom: 5px;"></p>
+                   <canvas id="pic2" width=500 height=300  class="canvas-container"></canvas>         
+               </div>
+           </div>
+       </div>
+       <label id = "jsonForCommits" title="" ></label>
+       <div class="row justify-content-center">
+            <h3><u>Diff</u></h3>
         </div> 
-  
-        <div class="row justify-content-center" style="margin-top: 10px">
-            <div class="col-sm" style="text-align: center" id="picture1Container">
-                <div id="pic1Box" class="image-left-style">
-                    <p id="picture1Label" style="text-align:center; background-color:lightgreen; margin:0; padding-bottom: 5px;"></p>
-                    <canvas id="pic1" width=500 height=300 class="canvas-container "></canvas>        
-                </div>
-            </div>
-            <div class="col-sm" style="text-align: center" id="picture2Container">
-                <div id="pic2Box" class="image-right-style">
-                    <p id="picture2Label" style="text-align:center; background-color:lightblue;margin:0; padding-bottom: 5px;"></p>
-                    <canvas id="pic2" width=500 height=300  class="canvas-container"></canvas>         
-                </div>
-            </div>
-        </div>
-        <label id = "jsonForCommits" title="" ></label>
-        <div id="diff-og-container" class="row justify-content-center canvas-container" style="z-index: 9999;">
-            <div class="col-12">
-                <canvas id="diffBack" width=500 height=300 style="margin-left:auto;margin-right: auto"></canvas>
-            </div>
-        </div>
-        <div id="diff-container" class="row justify-content-center" style="margin-top:-320; z-index: 0;">
+       <div id="diff-og-container" class="row justify-content-center canvas-container" style="z-index: 9999;">
+           <div class="col-12">
+               <canvas id="diffBack" width=500 height=300 style="margin-left:auto;margin-right: auto"></canvas>
+           </div>
+       </div>
+       <div id="diff-container" class="row justify-content-center" style="margin-top:-320; z-index: 0;">
             <div class="col-12">
                 <canvas id="diffpic" width=500 height=300 style="margin-left:auto;margin-right: auto"></canvas>
-            </div>
-            <p id="diffpicLabel">Diff</p>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-8">
-                <div id="rotated-alert" class="alert alert-secondary" role="alert">
-                    It looks like this image was rotated, so we won't show you a diff.
-                </div>
-                <div id="resized-alert" class="alert alert-secondary" role="alert">
-                    It looks like this image was resized, so we won't show you a diff.
-                </div>                
-            </div>
-        </div>
-        <div id="diff-tools" class="container">
-            <div class="row justify-content-center roomy-row">
-                <div class="col-8" style="text-align: center">
-                    <div class="switch">
-                        <label>
-                            <span class="readable-label">Use Differentiated Diff</span>
-                            <input type="checkbox" id="soft-diff-slider">
-                            <span class="lever"></span>
-                        </label>
-                        <span class="readable-label-dscr"><br>(This helps for images that have been compressed, <br>or had a filter applied)</span>
-                    </div>                 
-                </div>
-            </div>
-            <div class="row justify-content-center roomy-row">
-                <div class="col-8" style="text-align: center">
-                    <span class="readable-label">Diff color: </span>
-                    <input id="diff-color" class="jscolor" value="ff0000" style="width:100px; border-radius: 30px; padding-left:15px">
-                </div>        
-            </div>
-            <div class="row justify-content-center roomy-row">
-                <div class="col-10" style="text-align: center">
-                    <span class="readable-label">Diff intensity</span>
-                    <input type="range" min="0" max="100" value="100" class="slider" id="diff-intensity">            
-                </div>
-            </div>
-            <div class="row justify-content-center roomy-row">
-                <div class="col-8" style="text-align: center">
-                    <div class="switch">
-                        <label>
-                            <span class="readable-label">Show image behind diff</span>
-                            <input type="checkbox" id="image-chkbx" checked>
-                            <span class="lever"></span>
-                        </label>
-                    </div>               
-                </div>
-            </div>            
+            </div>    
+       </div>
+       <div class="row justify-content-center">
+           <div class="col-8">
+               <div id="rotated-alert" class="alert alert-secondary" role="alert">
+                   It looks like this image was rotated, so we won't show you a diff.
+               </div>
+               <div id="resized-alert" class="alert alert-secondary" role="alert">
+                   It looks like this image was resized, so we won't show you a diff.
+               </div>                
+           </div>
+       </div>
+       <div id="diff-tools" class="container">
+           <div class="row justify-content-center roomy-row">
+               <div class="col-8" style="text-align: center">
+                   <div class="switch">
+                       <label>
+                           <span class="readable-label">Use Differentiated Diff</span>
+                           <input type="checkbox" id="soft-diff-slider">
+                           <span class="lever"></span>
+                       </label>
+                       <span class="readable-label-dscr"><br>(This helps for images that have been compressed, <br>or had a filter applied)</span>
+                   </div>                 
+               </div>
+           </div>
+           <div class="row justify-content-center roomy-row">
+               <div class="col-8" style="text-align: center">
+                   <span class="readable-label">Diff color: </span>
+                   <input id="diff-color" class="jscolor" value="ff0000" style="width:100px; border-radius: 30px; padding-left:15px">
+               </div>        
+           </div>
+           <div class="row justify-content-center roomy-row">
+               <div class="col-10" style="text-align: center">
+                   <span class="readable-label">Diff intensity</span>
+                   <input type="range" min="0" max="100" value="100" class="slider" id="diff-intensity">            
+               </div>
+           </div>
+           <div class="row justify-content-center roomy-row">
+               <div class="col-8" style="text-align: center">
+                   <div class="switch">
+                       <label>
+                           <span class="readable-label">Show image behind diff</span>
+                           <input type="checkbox" id="image-chkbx" checked>
+                           <span class="lever"></span>
+                       </label>
+                   </div>               
+               </div>
+           </div>            
+       </div>
+
         </div>
     </body>
 </html>
