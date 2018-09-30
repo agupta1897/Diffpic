@@ -5,14 +5,14 @@ var timelinelength = 0;
 var username, repository, picName;
 function loadImagefromId(commitId1, commitId2)
 {
-    var URLName  = "https://cors-anywhere.herokuapp.com/http://raw.githubusercontent.com/" + username + "/" + repository + "/" + commitId1 + "/" + picName;
+    var URLName  = "http://raw.githubusercontent.com/" + username + "/" + repository + "/" + commitId1 + "/" + picName;
     if(commitId2 != null){
         $("#picture1").attr("src", URLName);
         drawImageFromUrl(URLName, pic1, "#pic1-container", false);
         $("#picture1Label").html("<b>" + commitId1.substring(0,5) + "</b>");
         $("#picture2Container").show();
         $("#picture2Label").html("<b>" + commitId2.substring(0,5) + "</b>");
-        URLName  = "https://cors-anywhere.herokuapp.com/http://raw.githubusercontent.com/" + username + "/" + repository + "/" + commitId2 + "/" + picName;
+        URLName  = "http://raw.githubusercontent.com/" + username + "/" + repository + "/" + commitId2 + "/" + picName;
         $("#picture2").attr("src",URLName);
         drawImageFromUrl(URLName, pic2, "#pic2-container", false);
         $("#diff-container").show();
