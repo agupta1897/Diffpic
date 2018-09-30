@@ -43,28 +43,11 @@ $(document).ready(function() {
                 alert(thrownError);
             }
         })
-SetTimeout(accessTokenCall(access_token.split("&")[0].split("=")[1]),200);
-        // if(tokenavailable === 1)
-        // {
-        // var access_tokenvalue = access_token.split("&")[0].split("=")[1];
-        // console.log(access_tokenvalue);
-        // var data123;
-        // $.ajax({
-        //     url: "https://api.github.com/user/repos?access_token=" + access_tokenvalue,
-        //     method: "GET",
-        //     success: function(res) {
-        //         data123 = res;
-        //         console.log(res);
-        //     },
-        //     error: function (xhr, ajaxOptions, thrownError) {
-        //         alert(xhr.status);
-        //         alert(thrownError);
-        //     }
-        // })
- }
 
-    function accessTokenCall ( access_tokenvalue)
-    {
+        if(tokenavailable === 1)
+        {
+        var access_tokenvalue = access_token.split("&")[0].split("=")[1];
+        console.log(access_tokenvalue);
         var data123;
         $.ajax({
             url: "https://api.github.com/user/repos?access_token=" + access_tokenvalue,
@@ -79,6 +62,8 @@ SetTimeout(accessTokenCall(access_token.split("&")[0].split("=")[1]),200);
             }
         })
     }
+    }
+
 
 
     var repoSelect = $('#git-repo');
