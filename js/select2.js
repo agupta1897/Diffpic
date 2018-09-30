@@ -20,7 +20,7 @@ $(document).ready(function() {
     var clientID = "b4b4312c8ea7ec470c34";
     var clientSecret = "fcd07f4c9e25b18c92fb6e0d0766c0a5e201ca79";
     var code, url, access_token;
-    $("#signinButton").attr('href', "https://github.com/login/oauth/authorize?client_id=" + clientID + "&allow_signup=false");
+    $("#signinButton").attr('href', "https://github.com/login/oauth/authorize?client_id=" + clientID + "&allow_signup=false&scope=repo");
 
     url = window.location.href;
     redirect_uri="https://damccoy1.github.io/diffpic/";
@@ -28,8 +28,9 @@ $(document).ready(function() {
     console.log(window.location.href);
     if (url.includes("code")) {
         code = url.substring(url.length-20);
+        console.log(code)
         $.ajax({
-            url: "https://github.com/login/oauth/access_token\?client_id=" + clientID + "&" + "redirect_uri=" + redirect_uri + "&" + "client_secret=" + clientSecret + "&" + "code=" + code,
+            url: "https://github.com/login/oauth/access_token?client_id=b4b4312c8ea7ec470c34&client_secret=fcd07f4c9e25b18c92fb6e0d0766c0a5e201ca79&code=" + code,
             jsonp: true,
             method: "POST",
             dataType: "json",
@@ -39,6 +40,8 @@ $(document).ready(function() {
             }
         })
     }
+
+
 
     var repoSelect = $('#git-repo');
 
