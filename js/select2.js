@@ -1,6 +1,6 @@
 var loggedInUser = '';
 var loggenInUserRepo ;
-var repoSelect = $('#git-repo');
+
 $(document).ready(function() {
 
     $("#img-table").hide();
@@ -94,7 +94,7 @@ function addPrivateRepos()
 //      console.log(x);
 //  }
 
-    function accessTokenCall ( access_tokenvalue)
+    function accessTokenCall (access_tokenvalue)
     {
         var data;
         $.ajax({
@@ -111,10 +111,7 @@ function addPrivateRepos()
             }
         })
     }
-
-
-   
-
+    var repoSelect = $('#git-repo');
     function addRepo() {
         $.ajax({
             url: "https://api.github.com/users/" + $("#username-field").val() + "/repos",
