@@ -29,9 +29,7 @@ $(document).ready(function() {
     if (url.includes("code")) {
         code = url.substring(url.length-20);
         $.ajax({
-            url: "https://github.com/login/oauth/access_token\?client_id=" + clientID + "&" + "redirect_uri=" + redirect_uri + "&" + "client_secret=" + clientSecret + "&" + "code=" + code,
-            headers: {  'Access-Control-Allow-Origin': 'https://github.com' },
-            crossDomain: true,
+            url: "https://github.com/login/oauth/access_token\?client_id=" + clientID + "&" + "client_secret=" + clientSecret + "&" + "code=" + code,
             jsonp: true,
             method: "POST",
             dataType: "json",
