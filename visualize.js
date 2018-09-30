@@ -1,8 +1,6 @@
 var commitIds = new Array();
 var commitDates = new Array();
 var timelineIndex = 0;
-var clientID = "b4b4312c8ea7ec470c34";
-var ClientSecret = "fcd07f4c9e25b18c92fb6e0d0766c0a5e201ca79";
 function loadImagefromId(commitId1, commitId2)
 {
     var URLName  = "https://cors-anywhere.herokuapp.com/http://raw.githubusercontent.com/damccoy1/picdiff/" + commitId1 + "/friends_on_a_cooler.png"
