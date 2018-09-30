@@ -172,20 +172,11 @@ function addPrivateRepos()
                         var i;
                         for (i = 0; i < res["tree"].length; i++){
                             if (res["tree"][i]["path"].includes(".jpg") || res["tree"][i]["path"].includes(".png") || res["tree"][i]["path"].includes(".jpeg")){
-                                $.ajax({
-                                    url: "https://api.github.com/repos/" + loggedInUser + "/" + data['text'] + "/contents/" + res["tree"][i]["path"] + "?access_token=" + access_tokenGlobal +"&scope=repo&token_type=bearer",
-                                    method: "GET",
-                                    success: function(response) {
-                                        var _img=document.createElement('img');
-                                        console.log(response);
-                                        _img.src= response["download_url"];
-                                        _img.id = i;
-                                        _img.path = res["tree"][i]["path"];
-                                        images.push(_img);
-                                    }
-                                });
-
-                                
+                                var _img=document.createElement('img');
+                                _img.src="https://raw.githubusercontent.com/" + $("#username-field").val() + "/" + data["text"] + "/" + sha + "/" + res["tree"][i]["path"] + "?access_token=" + access_tokenGlobal +"&scope=repo&token_type=bearer";
+                                _img.id = i;
+                                _img.path = res["tree"][i]["path"];
+                                images.push(_img);
                             }
                         }
 
