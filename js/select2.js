@@ -24,7 +24,7 @@ $(document).ready(function() {
 
     url = window.location.href;
     redirect_uri="https://damccoy1.github.io/diffpic/";
-    console.log("test link");
+    console.log("test linksd");
     console.log(window.location.href);
     if (url.includes("code")) {
         code = url.substring(url.length-20);
@@ -33,7 +33,7 @@ $(document).ready(function() {
             crossDomain: true,
             jsonp: true,
             method: "POST",
-            dataType: "jsonp",
+            dataType: "json",
             success: function(res) {
                 access_token = res;
                 console.log(res);
