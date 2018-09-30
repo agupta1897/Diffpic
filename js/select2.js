@@ -18,11 +18,27 @@ $(document).ready(function() {
     });
 
     var clientID = "b4b4312c8ea7ec470c34";
-    var ClientSecret = "fcd07f4c9e25b18c92fb6e0d0766c0a5e201ca79";
+    var clientSecret = "fcd07f4c9e25b18c92fb6e0d0766c0a5e201ca79";
+    var code, url, access_token;
     $("#signinButton").attr('href', "https://github.com/login/oauth/authorize?client_id=" + clientID + "&allow_signup=false");
 
+    url = window.location.href;
+    redirect_uri="https://damccoy1.github.io/diffpic/";
+    console.log("test link");
     console.log(window.location.href);
-    console.log("updateds");
+    if (url.includes("code")) {
+        code = url.substring(url.length-20);
+        $.ajax({
+            url: "https://github.com/login/oauth/access_token\?client_id=" + clientID + "&" + "redirect_uri=" + redirect_uri + "&" + "client_secret=" + clientSecret + "&" + "code=" + code,
+            jsonp: true,
+            method: "POST",
+            dataType: "json",
+            success: function(res) {
+                access_token = res;
+                console.log(res);
+            }
+        })
+    }
 
     var repoSelect = $('#git-repo');
 
