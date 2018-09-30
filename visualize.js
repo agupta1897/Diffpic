@@ -7,13 +7,13 @@ function loadImagefromId(commitId1, commitId2)
     var URLName  = "https://cors-anywhere.herokuapp.com/http://raw.githubusercontent.com/" + username + "/" + repository + "/" + commitId1 + "/" + picName;
     if(commitId2 != null){
         $("#picture1").attr("src", URLName);
-        drawImageFromUrl(URLName, pic1, "#pic1-container");
+        drawImageFromUrl(URLName, pic1, "#pic1-container", false);
         $("#picture1Label").html("<b>" + commitId1.substring(0,5) + "</b>");
         $("#picture2Container").show();
         $("#picture2Label").html("<b>" + commitId2.substring(0,5) + "</b>");
         URLName  = "https://cors-anywhere.herokuapp.com/http://raw.githubusercontent.com/" + username + "/" + repository + "/" + commitId2 + "/" + picName;
         $("#picture2").attr("src",URLName);
-        drawImageFromUrl(URLName, pic2, "#pic2-container");
+        drawImageFromUrl(URLName, pic2, "#pic2-container", false);
         $("#diff-container").show();
         $("#diff-og-container").show();
         $("#diff-title").show();
@@ -22,8 +22,9 @@ function loadImagefromId(commitId1, commitId2)
     else
     {
         $("#picture1").attr("src", URLName);
-        drawImageFromUrl(URLName, pic1, "#pic1-container");
-        $("#picture1Label").html(commitId1.substring(0,5));
+        img2Loaded = true;
+        drawImageFromUrl(URLName, pic1, "#pic1-container", true);
+        $("#picture1Label").html("<b>" + commitId1.substring(0,5) + "</b>");
         $("#picture2Container").hide();
         $("#diff-container").hide();
         $("#diff-og-container").hide();
@@ -73,19 +74,19 @@ function updateImages() {
     else {
         if (i === 0)
         {
-            $("#pic1Box").removeClass("left-image-with-two-total");
-            if (!$("#pic1Box").hasClass("left-image-with-one-total"))
-                $("#pic1Box").addClass("left-image-with-one-total");
             $("#timelinediv" + i).addClass("timeline-selected-left-item")
             loadImagefromId(commitIds[i],null)
         }
         else {
-            loadImagefromId(commitIds[i],null)
+            loadImagefromId(commitIds[i-1],null)
         }
+        $("#pic1Box").removeClass("left-image-with-two-total");
+        if (!$("#pic1Box").hasClass("left-image-with-one-total"))
+            $("#pic1Box").addClass("left-image-with-one-total");
     }
 }
 
-function drawImageFromUrl(url, pic, container){
+function drawImageFromUrl(url, pic, container, onlyOnePicDisplayed){
     img = new Image();
     img.onload = function() {
         URL.revokeObjectURL(this.src);
@@ -143,11 +144,13 @@ function drawImageFromUrl(url, pic, container){
                 $("#diff-og-container").hide();
                 $("#diff-title").hide();
                 $("#diff-tools").hide();
-                if (img1Height == img2Width && img1Width == img2Height) {
-                    $("#rotated-alert").fadeIn();
-                }
-                else {
-                    $("#resized-alert").fadeIn();
+                if (!onlyOnePicDisplayed) {
+                    if (img1Height == img2Width && img1Width == img2Height) {
+                        $("#rotated-alert").fadeIn();
+                    }
+                    else {
+                        $("#resized-alert").fadeIn();
+                    }    
                 }
             }
         }
