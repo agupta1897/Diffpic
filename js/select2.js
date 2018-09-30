@@ -21,7 +21,7 @@ $(document).ready(function() {
     var ClientSecret = "fcd07f4c9e25b18c92fb6e0d0766c0a5e201ca79";
     $("#signinButton").attr('href', "https://github.com/login/oauth/authorize?client_id=" + clientID + "&allow_signup=false");
 
-    console.log(window.location.pathname);
+    console.log(window.location);
 
     var repoSelect = $('#git-repo');
 
