@@ -102,7 +102,7 @@ function addPrivateRepos()
             method: "GET",
             success: function(res) {
                 data = res;
-                loggedInUser = data[0]["owner"]["login"];
+                loggedInUser = data[0]["owner"][login];
                 loggenInUserRepo = data;
             },
             error: function (xhr, ajaxOptions, thrownError) {
