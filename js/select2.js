@@ -1,5 +1,6 @@
 var loggedInUser = '';
 var loggenInUserRepo ;
+var access_tokenGlobal = '';
 
 $(document).ready(function() {
 
@@ -96,6 +97,7 @@ function addPrivateRepos()
 
     function accessTokenCall (access_tokenvalue)
     {
+        access_tokenGlobal = access_tokenvalue;
         var data;
         $.ajax({
             url: "https://api.github.com/user/repos?access_token=" + access_tokenvalue,
@@ -153,7 +155,7 @@ function addPrivateRepos()
         $("#slides").empty();
         var data = e.params.data;
         $.ajax({
-            url: "https://api.github.com/repos/" + $("#username-field").val() + "/" + data["text"] + "/commits",
+            url: "https://api.github.com/repos/" + $("#username-field").val() + "/" + data["text"] + "/commits?"+ "access_token=" + access_tokenGlobal,
             jsonp: true,
             method: "GET",
             dataType: "json",
@@ -162,7 +164,7 @@ function addPrivateRepos()
                 images = [];
                 var sha = res[0]["sha"];
                 $.ajax({
-                    url: "https://api.github.com/repos/" + $("#username-field").val() + "/" + data["text"] + "/git/trees/" + sha + "?recursive=1",
+                    url: "https://api.github.com/repos/" + $("#username-field").val() + "/" + data["text"] + "/git/trees/" + sha + "?recursive=1" + "&access_token=" + access_tokenGlobal,
                     jsonp: true,
                     method: "GET",
                     dataType: "json",
@@ -171,7 +173,7 @@ function addPrivateRepos()
                         for (i = 0; i < res["tree"].length; i++){
                             if (res["tree"][i]["path"].includes(".jpg") || res["tree"][i]["path"].includes(".png") || res["tree"][i]["path"].includes(".jpeg")){
                                 var _img=document.createElement('img');
-                                _img.src="https://raw.githubusercontent.com/" + $("#username-field").val() + "/" + data["text"] + "/" + sha + "/" + res["tree"][i]["path"];
+                                _img.src="https://raw.githubusercontent.com/" + $("#username-field").val() + "/" + data["text"] + "/" + sha + "/" + res["tree"][i]["path"] + "?access_token=" + access_tokenGlobal;
                                 _img.id = i;
                                 _img.path = res["tree"][i]["path"];
                                 images.push(_img);
