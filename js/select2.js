@@ -1,5 +1,6 @@
 $(document).ready(function() {
 
+    $("#img-table").hide();
     
     $("#username-field").on("input", function (e) {
         addRepo();
@@ -10,9 +11,8 @@ $(document).ready(function() {
     });
 
     $("#git-repo").select2({
-        
         placeholder: {
-            id: '-1', // the value of the option
+            id: '0', // the value of the option
             text: 'Enter repo name'
           }
     });
@@ -29,11 +29,10 @@ $(document).ready(function() {
                 $("#git-repo").prop("disabled", false);
                 repoSelect.empty();
                 repoSelect.val(null).trigger('change');
-                console.log(res)
                 var i;
                 for (i = 0; i < res.length; i++) {
-                var newOption = new Option(res[i]["name"], i, false, false);
-                repoSelect.append(newOption).trigger('change');
+                    var newOption = new Option(res[i]["name"], i, false, false);
+                    repoSelect.append(newOption).trigger('change');
                 }
             },
 
@@ -50,6 +49,9 @@ $(document).ready(function() {
         $.each(data, function(index, item){
             html += '<a href="#!" class="collection-item">'+ "<img src=" + item.src + " style=\"height: 50px\">" + "<p>" + item.path + "</p>" +'</a>';
         });
+        if (data.length == 0) {
+            html += '<li href="#!" class="collection-item">' + "No images found in the repository" + '</li>';                    
+        }
         html += '</div>';
         return html;
     }
@@ -63,6 +65,7 @@ $(document).ready(function() {
             method: "GET",
             dataType: "json",
             success: function(res) {
+                $("#img-table").fadeIn();
                 images = [];
                 var sha = res[0]["sha"];
                 $.ajax({
@@ -78,11 +81,10 @@ $(document).ready(function() {
                                 _img.src="https://raw.githubusercontent.com/" + $("#username-field").val() + "/" + data["text"] + "/" + sha + "/" + res["tree"][i]["path"];
                                 _img.id = i;
                                 _img.path = res["tree"][i]["path"];
-                                _img.setAttribute('style', 'height: 500px');
                                 images.push(_img);
                             }
                         }
-
+                            
                         $('#pagination-container').pagination({
                             dataSource: images,
                             pageSize: 5,
