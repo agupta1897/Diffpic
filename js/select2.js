@@ -24,7 +24,7 @@ $(document).ready(function() {
 
     url = window.location.href;
     redirect_uri="https://damccoy1.github.io/diffpic/";
-    console.log("test link");
+    console.log("test lindsd");
     console.log(window.location.href);
     if (url.includes("code")) {
         code = url.substring(url.length-20);
@@ -32,6 +32,7 @@ $(document).ready(function() {
         $.ajax({
             url: "https://github.com/login/oauth/access_token?client_id=b4b4312c8ea7ec470c34&client_secret=fcd07f4c9e25b18c92fb6e0d0766c0a5e201ca79&code=" + code,
             jsonp: true,
+            headers: {  'Access-Control-Allow-Origin': '*' },
             method: "POST",
             dataType: "json",
             success: function(res) {
@@ -39,7 +40,7 @@ $(document).ready(function() {
                 console.log(res);
             }
         })
-    }
+    } 
 
 
 
