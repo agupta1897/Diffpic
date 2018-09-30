@@ -16,6 +16,7 @@ function loadImagefromId(commitId1, commitId2)
         drawImageFromUrl(URLName, pic2, "#pic2-container");
         $("#diff-container").show();
         $("#diff-og-container").show();
+        $("#diff-title").show();
         $("#diff-tools").show();
         }
     else
@@ -26,6 +27,7 @@ function loadImagefromId(commitId1, commitId2)
         $("#picture2Container").hide();
         $("#diff-container").hide();
         $("#diff-og-container").hide();
+        $("#diff-title").hide();
         $("#diff-tools").hide();
     }
     }
@@ -133,6 +135,7 @@ function drawImageFromUrl(url, pic, container){
             else {
                 $("#diff-container").hide();
                 $("#diff-og-container").hide();
+                $("#diff-title").hide();
                 $("#diff-tools").hide();
                 if (img1Height == img2Width && img1Width == img2Height) {
                     $("#rotated-alert").fadeIn();
