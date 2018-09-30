@@ -1,6 +1,7 @@
 var commitIds = new Array();
 var commitDates = new Array();
 var timelineIndex = 0;
+var timelinelength = 0;
 var username, repository, picName;
 function loadImagefromId(commitId1, commitId2)
 {
@@ -33,13 +34,6 @@ function loadImagefromId(commitId1, commitId2)
     }
     }
 
-// function loadImageforIds(commitIds)
-// {
-//    for( i = 0; i < commitIds.length; i++)
-//    {
-//        loadImagefromId(commitIds[i]);
-//    }
-// }
 var img1Loaded = false;
 var img2Loaded = false;
 var pic1Data, pic2Data;
@@ -47,8 +41,7 @@ var img1Width, img2Width, img1Height, img2Height;
 
 function clearAllSelectedTimeline()
 {
-    var j=  timelineIndex;
-    for (i = timelineIndex ; i< timelineIndex+4; i++)
+    for (i = timelineIndex ; i< timelineIndex+timelinelength; i++)
     {
         $("#timelinediv"+i).removeClass("timeline-selected-right-item")
         $("#timelinediv"+i).removeClass("timeline-selected-left-item")
@@ -63,7 +56,7 @@ function updateImages() {
     var i = ( parseInt($("#slider").val())+ timelineIndex);
     if (i > 0 && i < commitIds.length)
     {
-        console.log("#timelinediv" + $("#slider").val())
+    console.log("#timelinediv" + $("#slider").val())
     $("#timelinediv" + i).addClass("timeline-selected-right-item")
     $("#timelinediv" + (i-1)).addClass("timeline-selected-left-item")
     loadImagefromId(commitIds[i-1],commitIds[i]);
@@ -163,7 +156,7 @@ function drawImageFromUrl(url, pic, container, onlyOnePicDisplayed){
 function drawDiff(red, green, blue) {
     var data1 = pic1Data.data;
     var data2 = pic2Data.data;
-    for(var i = 0; i < data1.length; i += 4) {
+    for(var i = 0; i < data1.length; i += timelinelength) {
         if (data1[i] != data2[i] || data1[i + 1] != data2[i + 1] || data1[i + 2] != data2[i + 2]){
             var alpha = 255;
             if ($("#soft-diff-slider")[0].checked){
@@ -201,7 +194,7 @@ function updateTimelineButton()
         $("#btnLeftClick").attr("disabled", "disabled");
     }
 
-    if((timelineIndex + 4)  < commitIds.length )
+    if((timelineIndex + timelinelength)  < commitIds.length )
     {
         $("#btnRightClick").removeAttr("disabled");
     }
@@ -231,7 +224,7 @@ function updateTimelineToLeft()
 
 function updateTimelineToRight()
 {
-    if((timelineIndex + 4) < commitIds.length)
+    if((timelineIndex + timelinelength) < commitIds.length)
     {
         timelineIndex++;
         createTimelineMarkUp();
@@ -239,21 +232,16 @@ function updateTimelineToRight()
         if($("#slider").val() != 0)
         {
             $("#slider").val(parseInt($("#slider").val()) - 1);
-        // $("#slider").attr("value", $("#slider").val()-1 );
-        //$("#slider").attr("value",parseInt($("#slider").val()) - 1); 
-        // $("#slider").val(parseInt($("#slider").val()) - 1);
         updateImages();
         }
-    }
-
-    
+    } 
     updateTimelineButton()
 }
 
 function createTimelineMarkUp( )
 {
     document.getElementById("timeline").innerHTML = "";
-    for ( i = timelineIndex ; i< timelineIndex + 4; i++)
+    for ( i = timelineIndex ; i< timelineIndex + timelinelength; i++)
     {
     $("#timeline").append(" <div class='col' id='timelinediv" + i +"' style='text-align:center; font-size:15;'>" + commitIds[i].substring(0, 5) 
     +
@@ -276,9 +264,26 @@ $(document).ready(function(){
                 // +
                 //   "<div class='col' style='text-align:center; font-size:10;'>" + commitDates[commitDates.length-1] +" </div></div>");
             }
+            if(commitIds.length > 4)
+            {
+                timelinelength =4;
+            }
+            else
+            {
+               
+                timelinelength = commitIds.length;
+            }
+            $("#slider").attr("max", timelinelength)
             createTimelineMarkUp();
-                
-                $("#slider").attr("value", 2);   
+            if(timelinelength === 1)
+            {
+                $("#slider").hide();
+
+            }else
+            {
+                $("#slider").show();
+            }
+            $("#slider").attr("value", timelinelength/2);   
             updateImages();  
         });
         $("#slider").show();
