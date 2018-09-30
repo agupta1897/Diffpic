@@ -180,7 +180,7 @@ function addPrivateRepos()
                                         console.log(response);
                                         _img.src= response["download_url"];
                                         _img.id = i;
-                                        _img.path = response["path"];
+                                        _img.path = res["tree"][i]["path"];
                                         images.push(_img);
                                     }
                                 });
