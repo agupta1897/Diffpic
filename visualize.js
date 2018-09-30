@@ -1,22 +1,20 @@
 var commitIds = new Array();
 var commitDates = new Array();
 var timelineIndex = 0;
-var username, repository, picName;
 function loadImagefromId(commitId1, commitId2)
 {
-    var URLName  = "https://cors-anywhere.herokuapp.com/http://raw.githubusercontent.com/" + username + "/" + repository + "/" + commitId1 + "/" + picName;
+    var URLName  = "https://cors-anywhere.herokuapp.com/http://raw.githubusercontent.com/damccoy1/picdiff/" + commitId1 + "/friends_on_a_cooler.png"
     if(commitId2 != null){
         $("#picture1").attr("src", URLName);
         drawImageFromUrl(URLName, pic1, "#pic1-container");
         $("#picture1Label").html("<b>" + commitId1.substring(0,5) + "</b>");
         $("#picture2Container").show();
         $("#picture2Label").html("<b>" + commitId2.substring(0,5) + "</b>");
-        URLName  = "https://cors-anywhere.herokuapp.com/http://raw.githubusercontent.com/" + username + "/" + repository + "/" + commitId2 + "/" + picName;
+        URLName  = "https://cors-anywhere.herokuapp.com/http://raw.githubusercontent.com/damccoy1/picdiff/" + commitId2 + "/friends_on_a_cooler.png"
         $("#picture2").attr("src",URLName);
         drawImageFromUrl(URLName, pic2, "#pic2-container");
         $("#diff-container").show();
         $("#diff-og-container").show();
-        $("#diff-title").show();
         $("#diff-tools").show();
         }
     else
@@ -27,7 +25,6 @@ function loadImagefromId(commitId1, commitId2)
         $("#picture2Container").hide();
         $("#diff-container").hide();
         $("#diff-og-container").hide();
-        $("#diff-title").hide();
         $("#diff-tools").hide();
     }
     }
@@ -128,8 +125,8 @@ function drawImageFromUrl(url, pic, container){
             pic2Data = pic2.getContext("2d").getImageData(0, 0, pic2.width, pic2.height);
         }
         if (img1Loaded && img2Loaded) {
-            $("#picture1Label").html($("#picture1Label").html() + " (" + img1Height + "px x " + img1Width + "px)");
-            $("#picture2Label").html($("#picture2Label").html() + " (" + img2Height + "px x " + img2Width + "px)");
+            $("#picture1Label").html($("#picture1Label").html() + " (" + img1Height + "x" + img1Width + ")");
+            $("#picture2Label").html($("#picture2Label").html() + " (" + img2Height + "x" + img2Width + ")");
             if (img1Height == img2Height && img1Width == img2Width){
                 var rgbSelection = hexToRgb($("#diff-color").val());
                 picWidth = pic1.width;
@@ -141,7 +138,6 @@ function drawImageFromUrl(url, pic, container){
             else {
                 $("#diff-container").hide();
                 $("#diff-og-container").hide();
-                $("#diff-title").hide();
                 $("#diff-tools").hide();
                 if (img1Height == img2Width && img1Width == img2Height) {
                     $("#rotated-alert").fadeIn();
@@ -259,9 +255,8 @@ function createTimelineMarkUp( )
 }
 
 $(document).ready(function(){
-    $("#diff-body-container").hide();
     function loadAllCommits() {
-        var URLName  = "https://api.github.com/repos/"+ username + "/" + repository + "/commits?path=" + picName;
+        var URLName  = "https://api.github.com/repos/damccoy1/picdiff/commits?path=friends_on_a_cooler.png"
         $.get(URLName, function(data){        
             commitIds = [];
             for( i = data.length-1; i > -1; i--)
@@ -296,21 +291,5 @@ $(document).ready(function(){
 
     $("#btnRightClick").click('input', function(){
         updateTimelineToRight();
-    });
-
-    $(document).on("click", ".collection-item", function(){
-        console.log($(this).text());
-        $("#diff-body-container").fadeIn();
-        $('html, body').animate({
-            scrollTop: $("#diff-body-container").offset().top
-        }, 900, 'swing', function() {
-
-            // Add hash (#) to URL when done scrolling (default click behavior)
-            // window.location.hash = target;
-        });
-        picName = $(this).text();
-        username = $("#username-field").val();
-        repository = $('#git-repo').select2('data')[0].text;
-        loadAllCommits();
     });
 });

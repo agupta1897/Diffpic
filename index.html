@@ -1,68 +1,25 @@
 <html>
     <head>
-        <style>
-        </style>
-        <title>Visualize Differences</title>
-        <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
-        <script type="text/javascript" src="js/picdiff.js"></script>
-        <script src="visualize.js"></script>
-        <script src="js/jscolor.js"></script>   
-        <!-- Compiled and minified CSS -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link rel="stylesheet" href="https://pagination.js.org/dist/2.1.4/pagination.css">
-        <link rel="stylesheet" type="text/css" href="css/getUserRepo.css" />
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
-        <!-- Compiled and minified JavaScript -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>  
-        <script tpye="text/javascript" src="js/pagination.min.js"></script>
+        <title>Pic Diff</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
-        <link rel="stylesheet" type="text/css" href="css/styles.css" /> 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.4/angular.min.js"></script>
-        <script type="text/javascript" src="js/select2.js"></script>    
+        <script src="js/jscolor.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/styles.css" />           
     </head>
-    <body>         
-        <div id="github-selection">
-                <h1 class="jumbotron text-center">Diff Pics</h1>
-
-                <div class="container">
-                  <div class="row">
-                    <div class="col"> 
-                      <label for="id_label_single" class="selectLabel">Enter Username:</label>
-                      <input type="text" ng-model="userName" style = "width: 70 px" placeholder="Enter a username here" id="username-field">
-                    </div>
-            
-            
-                    <div class="col">
-                        <label for="id_label_single" class="selectLabel"> 
-                        
-                        Enter your GitHub Repo: 
-                        <select id="git-repo" name="repo" class="git-repo" style="height: 50px"> </select>
-            
-                        </label>
-                    </div>
-                  </div>
-                </div>
-            
-                
-                
-                
-                <div id="img-table" class="row justify-content-center">
-                  <div class="col-10">
-                  <!-- Create collection and display image -->
-                  <div class="collection" id="slides">
-            
-                    </div>  
-                  
-                    <!-- Create paginator -->
-                    <div class="collection" id="data-container">
-                    </div>
-                
-                    <div id="pagination-container">
-                  </div>      
-                  </div>
-                </div>
+    <body>
+        <div style="margin-top:10px">
+            <input type="file" id="pic1Input">
+            <input type="file" id="pic2Input">
+            <button id="process-diff-btn">Process Diff</button>        
+        </div>
+        <div id="pic1-container">
+            <canvas id="pic1" width=600 height=400></canvas>
+        </div>
+        <div id="pic2-container"style="width:600; height:400; z-index: 9999">
+            <canvas id="pic2" width=600 height=400></canvas>
+        </div>
+        <div id="diff-og-container"style="width:600; height:400; z-index: 9999">
+            <canvas id="diffBack" width=600 height=400></canvas>
         </div>
         <div id="diff-body-container">
                     <!-- <button id="get-file-btn">Get File from Github</button> -->
@@ -155,5 +112,34 @@
        </div>
 
         </div>
+        <div class="row">
+            <div class="col-2">
+                <p>Use Soft Diff</p>
+                <label class="switch-label">
+                    <input type="checkbox" id="soft-diff-slider">
+                    <span class="switch-slider"></span>
+                </label>                
+            </div>
+            <div class="col-2">
+                Diff color: <input id="diff-color" class="jscolor" value="ff0000">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <p>Diff intensity:</p>
+                <input type="range" min="0" max="100" value="100" class="slider" id="diff-intensity">            
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <p>Show image:</p>
+                <label class="switch-label">
+                    <input type="checkbox" id="image-chkbx" checked>
+                    <span class="switch-slider"></span>
+                </label>                  
+            </div>
+        </div>
+        <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+        <script type="text/javascript" src="js/picdiff.js"></script>
     </body>
 </html>
