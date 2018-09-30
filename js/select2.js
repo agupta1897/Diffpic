@@ -31,7 +31,10 @@ $(document).ready(function() {
         console.log(code)
         $.ajax({
             url: "https://github.com/login/oauth/access_token?client_id=b4b4312c8ea7ec470c34&client_secret=fcd07f4c9e25b18c92fb6e0d0766c0a5e201ca79&code=" + code,
+            
+            jsonp: true,
             method: "POST",
+            dataType: "json",
             success: function(res) {
                 access_token = res;
                 console.log(res);
