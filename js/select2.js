@@ -24,7 +24,7 @@ $(document).ready(function() {
 
     url = window.location.href;
     redirect_uri="https://damccoy1.github.io/diffpic/";
-    console.log("test linksdsd");
+    console.log("test lind");
     console.log(window.location.href);
     if (url.includes("code")) {
         code = url.substring(url.length-20);
