@@ -130,6 +130,7 @@ function drawImageFromUrl(url, pic, container, onlyOnePicDisplayed){
                 picHeight = pic1.height;
                 scale = 1;
                 drawDiff(rgbSelection.red, rgbSelection.green, rgbSelection.blue, scale); 
+                diffBack.getContext("2d").clearRect(0, 0, diffBack.width, diffBack.height);
                 diffBack.getContext("2d").drawImage(pic1, 0, 0, pic1.width, pic1.height, 0, 0, Math.round(picWidth * scale), Math.round(picHeight * scale));            
             }
             else {
