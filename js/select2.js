@@ -33,7 +33,7 @@ $(document).ready(function() {
             jsonp: true,
             headers: {  'Access-Control-Allow-Origin': '*' },
             method: "POST",
-            dataType: "jsonp",
+            dataType: "json",
             success: function(res) {
                 access_token = res;
                 console.log(res);
