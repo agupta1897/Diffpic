@@ -43,7 +43,7 @@ $(document).ready(function() {
                 alert(thrownError);
             }
         })
-setTimeout(accessTokenCall(access_token.split("&")[0].split("=")[1]),200);
+SetTimeout(accessTokenCall(access_token.split("&")[0].split("=")[1]),200);
         // if(tokenavailable === 1)
         // {
         // var access_tokenvalue = access_token.split("&")[0].split("=")[1];
