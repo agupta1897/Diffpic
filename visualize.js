@@ -130,6 +130,7 @@ function drawImageFromUrl(url, pic, container, onlyOnePicDisplayed){
                 picHeight = pic1.height;
                 scale = 1;
                 drawDiff(rgbSelection.red, rgbSelection.green, rgbSelection.blue, scale); 
+                diffBack.getContext("2d").clearRect(0, 0, diffBack.width, diffBack.height);
                 diffBack.getContext("2d").drawImage(pic1, 0, 0, pic1.width, pic1.height, 0, 0, Math.round(picWidth * scale), Math.round(picHeight * scale));            
             }
             else {
@@ -156,11 +157,11 @@ function drawImageFromUrl(url, pic, container, onlyOnePicDisplayed){
 function drawDiff(red, green, blue) {
     var data1 = pic1Data.data;
     var data2 = pic2Data.data;
-    for(var i = 0; i < data1.length; i += timelinelength) {
+    for(var i = 0; i < data1.length; i += 4) {
         if (data1[i] != data2[i] || data1[i + 1] != data2[i + 1] || data1[i + 2] != data2[i + 2]){
             var alpha = 255;
             if ($("#soft-diff-slider")[0].checked){
-                alpha = ((Math.abs(data1[i] - data2[i])+ Math.abs(data1[i + 1] - data2[i + 1])+ Math.abs(data1[i + 2] - data2[i + 2])) / 3);
+                alpha = ((Math.abs(data2[i] - data1[i])+ Math.abs(data2[i + 1] - data1[i + 1])+ Math.abs(data2[i + 2] - data1[i + 2])) / 3);
             }
             data1[i] = red;     // red
             data1[i + 1] = green; // green]
@@ -250,6 +251,7 @@ function createTimelineMarkUp( )
 }
 
 $(document).ready(function(){
+    $("#slider").tooltip();
     $("#diff-body-container").hide();
     function loadAllCommits() {
         var URLName  = "https://api.github.com/repos/"+ username + "/" + repository + "/commits?path=" + picName;
@@ -296,6 +298,7 @@ $(document).ready(function(){
         $("#resized-alert").fadeOut();
         console.log($('#slider').val());
         updateImages();
+        M.Tooltip.getInstance($("#slider")).destroy();
         });
 
     $("#btnLeftClick").click('input', function(){
@@ -312,7 +315,7 @@ $(document).ready(function(){
         $('html, body').animate({
             scrollTop: $("#diff-body-container").offset().top
         }, 900, 'swing', function() {
-
+            $("#slider").tooltip("open");
             // Add hash (#) to URL when done scrolling (default click behavior)
             // window.location.hash = target;
         });
