@@ -5,34 +5,47 @@ var timelinelength = 0;
 var username, repository, picName;
 function loadImagefromId(commitId1, commitId2)
 {
-    var URLName  = "https://cors-anywhere.herokuapp.com/http://raw.githubusercontent.com/" + username + "/" + repository + "/" + commitId1 + "/" + picName;
-    if(commitId2 != null){
-        $("#picture1").attr("src", URLName);
-        drawImageFromUrl(URLName, pic1, "#pic1-container", false);
-        $("#picture1Label").html("<b>" + commitId1.substring(0,5) + "</b>");
-        $("#picture2Container").show();
-        $("#picture2Label").html("<b>" + commitId2.substring(0,5) + "</b>");
-        URLName  = "https://cors-anywhere.herokuapp.com/http://raw.githubusercontent.com/" + username + "/" + repository + "/" + commitId2 + "/" + picName;
-        $("#picture2").attr("src",URLName);
-        drawImageFromUrl(URLName, pic2, "#pic2-container", false);
-        $("#diff-container").show();
-        $("#diff-og-container").show();
-        $("#diff-title").show();
-        $("#diff-tools").show();
+    $.ajax({
+        url: "https://api.github.com/repos/" + loggedInUser + "/" + data['text'] + "/" + commidId1 + "/contents/" + res["tree"][i]["path"] + "?access_token=" + access_tokenGlobal +"&scope=repo&token_type=bearer",
+        method: "GET",
+        success: function(response) {
+            var URLName  = response["download_url"];
+            if(commitId2 != null){
+                    $("#picture1").attr("src", URLName);
+                    drawImageFromUrl(URLName, pic1, "#pic1-container", false);
+                    $("#picture1Label").html("<b>" + commitId1.substring(0,5) + "</b>");
+                    $("#picture2Container").show();
+                    $("#picture2Label").html("<b>" + commitId2.substring(0,5) + "</b>");
+                    $.ajax({
+                        url: "https://api.github.com/repos/" + loggedInUser + "/" + data['text'] + "/" + commidId1 + "/contents/" + res["tree"][i]["path"] + "?access_token=" + access_tokenGlobal +"&scope=repo&token_type=bearer",
+                        method: "GET",
+                        success: function(response) {
+                            URLName  = response["download_url"];
+                            $("#picture2").attr("src",URLName);
+                            drawImageFromUrl(URLName, pic2, "#pic2-container", false);
+                            $("#diff-container").show();
+                            $("#diff-og-container").show();
+                            $("#diff-title").show();
+                            $("#diff-tools").show();
+                        }
+                    });
+                    
+                }
+            else
+            {
+                $("#picture1").attr("src", URLName);
+                img2Loaded = true;
+                drawImageFromUrl(URLName, pic1, "#pic1-container", true);
+                $("#picture1Label").html("<b>" + commitId1.substring(0,5) + "</b>");
+                $("#picture2Container").hide();
+                $("#diff-container").hide();
+                $("#diff-og-container").hide();
+                $("#diff-title").hide();
+                $("#diff-tools").hide();
+            }        
         }
-    else
-    {
-        $("#picture1").attr("src", URLName);
-        img2Loaded = true;
-        drawImageFromUrl(URLName, pic1, "#pic1-container", true);
-        $("#picture1Label").html("<b>" + commitId1.substring(0,5) + "</b>");
-        $("#picture2Container").hide();
-        $("#diff-container").hide();
-        $("#diff-og-container").hide();
-        $("#diff-title").hide();
-        $("#diff-tools").hide();
-    }
-    }
+    });
+}
 
 var img1Loaded = false;
 var img2Loaded = false;
