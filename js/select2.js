@@ -63,7 +63,7 @@ function addPrivateRepos()
                 access_token = res;
                 accessTokenCall(access_token.split("&")[0].split("=")[1])
                 console.log(res);
-
+                
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 // alert(xhr.status);
@@ -107,11 +107,10 @@ function addPrivateRepos()
                 data = res;
                 loggedInUser = data[0]["owner"]["login"];
                 loggenInUserRepo = data;
-                $("#username-field").val(loggedInUser);
             },
             error: function (xhr, ajaxOptions, thrownError) {
-                // alert(xhr.status);
-                // alert(thrownError);
+                alert(xhr.status);
+                alert(thrownError);
             }
         })
     }
