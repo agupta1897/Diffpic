@@ -99,10 +99,17 @@ canvas {
     margin-top: 20px;
 }
 
-#pic1Box {
+#pic2Box {
+    float: left;
+}
+
+.left-image-with-two-total {
     float: right;
 }
 
-#pic2Box {
-    float: left;
+.left-image-with-one-total {
+    float: none;
+    width: 520;
+    margin-left: auto;
+    margin-right: auto;
 }

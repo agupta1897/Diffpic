@@ -65,11 +65,17 @@ function updateImages() {
         console.log("#timelinediv" + $("#slider").val())
     $("#timelinediv" + i).addClass("timeline-selected-right-item")
     $("#timelinediv" + (i-1)).addClass("timeline-selected-left-item")
-    loadImagefromId(commitIds[i-1],commitIds[i])
+    loadImagefromId(commitIds[i-1],commitIds[i]);
+    if (!$("#pic1Box").hasClass("left-image-with-two-total"))
+        $("#pic1Box").addClass("left-image-with-two-total");
+    $("#pic1Box").removeClass("left-image-with-one-total");
     }
     else {
         if (i === 0)
         {
+            $("#pic1Box").removeClass("left-image-with-two-total");
+            if (!$("#pic1Box").hasClass("left-image-with-one-total"))
+                $("#pic1Box").addClass("left-image-with-one-total");
             $("#timelinediv" + i).addClass("timeline-selected-left-item")
             loadImagefromId(commitIds[i],null)
         }
