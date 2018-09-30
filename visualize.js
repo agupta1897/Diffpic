@@ -267,7 +267,7 @@ $(document).ready(function(){
     $("#slider").tooltip();
     $("#diff-body-container").hide();
     function loadAllCommits() {
-        var URLName  = "https://api.github.com/repos/"+ username + "/" + repository + "/commits?path=" + picName + "&access_token=" + access_tokenGlobal +"&scope=repo&token_type=bearer";
+        var URLName  = "https://api.github.com/repos/"+ username + "/" + repository + "/commits?path=" + picName + "?access_token=" + access_tokenGlobal +"&scope=repo&token_type=bearer";
         $.get(URLName, function(data){        
             commitIds = [];
             for( i = data.length-1; i > -1; i--)
