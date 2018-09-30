@@ -262,6 +262,7 @@ function createTimelineMarkUp( )
 }
 
 $(document).ready(function(){
+    $("#slider").tooltip();
     $("#diff-body-container").hide();
     function loadAllCommits() {
         var URLName  = "https://api.github.com/repos/"+ username + "/" + repository + "/commits?path=" + picName;
@@ -291,6 +292,7 @@ $(document).ready(function(){
         $("#resized-alert").fadeOut();
         console.log($('#slider').val());
         updateImages();
+        M.Tooltip.getInstance($("#slider")).destroy();
         });
 
     $("#btnLeftClick").click('input', function(){
@@ -307,7 +309,7 @@ $(document).ready(function(){
         $('html, body').animate({
             scrollTop: $("#diff-body-container").offset().top
         }, 900, 'swing', function() {
-
+            $("#slider").tooltip("open");
             // Add hash (#) to URL when done scrolling (default click behavior)
             // window.location.hash = target;
         });

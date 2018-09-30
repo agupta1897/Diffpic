@@ -24,12 +24,14 @@
     </head>
     <body>         
         <div id="github-selection">
-                <h1 class="jumbotron text-center">Diff Pics</h1>
-
+                <div class="jumbotron text-center">
+                    <h1>Diff Pics</h1><br>
+                    <h3><i>What's the difference?</i></h3>
+                </div>
                 <div class="container">
                   <div class="row">
                     <div class="col"> 
-                      <label for="id_label_single" class="selectLabel">Enter Username:</label>
+                      <label for="id_label_single" class="selectLabel">Enter GitHub Username:</label>
                       <input type="text" ng-model="userName" style = "width: 70 px" placeholder="Enter a username here" id="username-field">
                     </div>
             
@@ -48,8 +50,12 @@
                 
                 
                 
-                <div id="img-table" class="row justify-content-center">
-                  <div class="col-10">
+                <div id="img-table" class="container">
+                    <div class="row justify-content-center">
+                        <h3>Choose an image</h3>
+                    </div> 
+                    <div class="row" style="width:100%;margin:0 auto 0 auto">
+                  <div class="col-12">
                   <!-- Create collection and display image -->
                   <div class="collection" id="slides">
             
@@ -63,6 +69,7 @@
                   </div>      
                   </div>
                 </div>
+                </div>
         </div>
         <div id="diff-body-container">
                     <!-- <button id="get-file-btn">Get File from Github</button> -->
@@ -74,10 +81,9 @@
        </div>
        <div class="row justify-content-center" style="width:80%; margin-left: auto;margin-right: auto">
            <div class="col-12 canvas-container">
-               <input  class="row" id="slider" type="range" min="0" max="4" style="width:100%"/>
+               <input  class="row tooltipped" id="slider" type="range" min="0" max="4" style="width:100%" data-position="bottom" data-tooltip="Slide to see changes across commits"/>
            </div>
        </div> 
- 
        <div class="row justify-content-center" style="margin-top: 10px">
            <div class="col-sm" style="text-align: center" id="picture1Container">
                <div id="pic1Box" class="image-left-style left-image-with-two-total">
@@ -94,8 +100,38 @@
        </div>
        <label id = "jsonForCommits" title="" ></label>
        <div id="diff-title" class="row justify-content-center">
-            <h3><u>Diff</u></h3>
+            <h3><u>Diff Options</u></h3>
         </div> 
+        <div id="diff-tools" class="row">
+                <div class="col-3" style="text-align: center">
+                    <div class="switch">
+                        <label>
+                            <span class="readable-label">Use Differentiated Diff</span>
+                            <input type="checkbox" id="soft-diff-slider">
+                            <span class="lever"></span>
+                        </label>
+                        <span class="readable-label-dscr"><br>(This helps for images that have been compressed, <br>or had a filter applied)</span>
+                    </div>                 
+                </div>
+                <div class="col-3" style="text-align: center">
+                    <span class="readable-label">Diff color: </span>
+                    <input id="diff-color" class="jscolor" value="ff0000" style="width:100px; border-radius: 30px; padding-left:15px; margin-left:10px">
+                </div>        
+                <div class="col-3" style="text-align: center">
+                    <span class="readable-label">Diff intensity</span>
+                    <input type="range" min="0" max="100" value="100" class="slider" id="diff-intensity">            
+                </div>
+                <div class="col-3" style="text-align: center">
+                    <div class="switch">
+                        <label>
+                            <span class="readable-label">Show image behind diff</span>
+                            <input type="checkbox" id="image-chkbx" checked>
+                            <span class="lever"></span>
+                        </label>
+                    </div>               
+                </div>
+            </div> 
+    
        <div id="diff-og-container" class="row justify-content-center canvas-container" style="z-index: 9999;">
            <div class="col-12">
                <canvas id="diffBack" width=500 height=300 style="margin-left:auto;margin-right: auto"></canvas>
@@ -116,44 +152,6 @@
                </div>                
            </div>
        </div>
-       <div id="diff-tools" class="container">
-           <div class="row justify-content-center roomy-row">
-               <div class="col-8" style="text-align: center">
-                   <div class="switch">
-                       <label>
-                           <span class="readable-label">Use Differentiated Diff</span>
-                           <input type="checkbox" id="soft-diff-slider">
-                           <span class="lever"></span>
-                       </label>
-                       <span class="readable-label-dscr"><br>(This helps for images that have been compressed, <br>or had a filter applied)</span>
-                   </div>                 
-               </div>
-           </div>
-           <div class="row justify-content-center roomy-row">
-               <div class="col-8" style="text-align: center">
-                   <span class="readable-label">Diff color: </span>
-                   <input id="diff-color" class="jscolor" value="ff0000" style="width:100px; border-radius: 30px; padding-left:15px">
-               </div>        
-           </div>
-           <div class="row justify-content-center roomy-row">
-               <div class="col-10" style="text-align: center">
-                   <span class="readable-label">Diff intensity</span>
-                   <input type="range" min="0" max="100" value="100" class="slider" id="diff-intensity">            
-               </div>
-           </div>
-           <div class="row justify-content-center roomy-row">
-               <div class="col-8" style="text-align: center">
-                   <div class="switch">
-                       <label>
-                           <span class="readable-label">Show image behind diff</span>
-                           <input type="checkbox" id="image-chkbx" checked>
-                           <span class="lever"></span>
-                       </label>
-                   </div>               
-               </div>
-           </div>            
-       </div>
-
         </div>
     </body>
 </html>
