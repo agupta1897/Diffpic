@@ -6,7 +6,7 @@ var username, repository, picName;
 function loadImagefromId(commitId1, commitId2)
 {
     $.ajax({
-        url: "https://api.github.com/repos/" + username + "/" + repository + "/" + commidId1 + "/contents/" + picName + "?access_token=" + access_tokenGlobal +"&scope=repo&token_type=bearer",
+        url: "https://api.github.com/repos/" + loggedInUser + "/" + data['text'] + "/" + commidId1 + "/contents/" + res["tree"][i]["path"] + "?access_token=" + access_tokenGlobal +"&scope=repo&token_type=bearer",
         method: "GET",
         success: function(response) {
             var URLName  = response["download_url"];
@@ -17,7 +17,7 @@ function loadImagefromId(commitId1, commitId2)
                     $("#picture2Container").show();
                     $("#picture2Label").html("<b>" + commitId2.substring(0,5) + "</b>");
                     $.ajax({
-                        url: "https://api.github.com/repos/" + username + "/" + repository + "/" + commidId1 + "/contents/" + picName + "?access_token=" + access_tokenGlobal +"&scope=repo&token_type=bearer",
+                        url: "https://api.github.com/repos/" + loggedInUser + "/" + data['text'] + "/" + commidId1 + "/contents/" + res["tree"][i]["path"] + "?access_token=" + access_tokenGlobal +"&scope=repo&token_type=bearer",
                         method: "GET",
                         success: function(response) {
                             URLName  = response["download_url"];

@@ -63,11 +63,10 @@ function addPrivateRepos()
                 access_token = res;
                 accessTokenCall(access_token.split("&")[0].split("=")[1])
                 console.log(res);
-                
             },
             error: function (xhr, ajaxOptions, thrownError) {
-                // alert(xhr.status);
-                // alert(thrownError);
+                alert(xhr.status);
+                alert(thrownError);
             }
         })
         // setTimeout(nothing123(), 3000);
