@@ -182,23 +182,25 @@ function addPrivateRepos()
                                         _img.id = i;
                                         _img.path = response["path"];
                                         images.push(_img);
+                                        if (i == res["tree"].length) {
+                                            $('#pagination-container').pagination({
+                                                dataSource: images,
+                                                pageSize: 5,
+                                                showGoInput: true,
+                                                showGoButton: true,
+                                                callback: function(data, pagination) {
+                                                    var html = simpleTemplating(data);
+                                                    $('#data-container').html(html);
+                                                }
+                                            });
+                                        }
                                     }
                                 });
 
                                 
                             }
                         }
-
-                        $('#pagination-container').pagination({
-                            dataSource: images,
-                            pageSize: 5,
-                            showGoInput: true,
-                            showGoButton: true,
-                            callback: function(data, pagination) {
-                                var html = simpleTemplating(data);
-                                $('#data-container').html(html);
-                            }
-                        });
+                        
                     }
                 });
 
