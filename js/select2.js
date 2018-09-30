@@ -38,10 +38,6 @@ $(document).ready(function() {
             success: function(res) {
                 access_token = res;
                 console.log(res);
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-                alert(xhr.status);
-                alert(thrownError);
             }
         })
     }
