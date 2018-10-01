@@ -3,6 +3,7 @@ var commitDates = new Array();
 var timelineIndex = 0;
 var timelinelength = 0;
 var username, repository, picName;
+var showTooltip = true;
 function loadImagefromId(commitId1, commitId2)
 {
     var URLName  = "http://raw.githubusercontent.com/" + username + "/" + repository + "/" + commitId1 + "/" + picName;
@@ -315,7 +316,10 @@ $(document).ready(function(){
         $('html, body').animate({
             scrollTop: $("#diff-body-container").offset().top
         }, 900, 'swing', function() {
-            $("#slider").tooltip("open");
+            if (showTooltip) {
+                $("#slider").tooltip("open");
+                showTooltip = false;
+            }
             // Add hash (#) to URL when done scrolling (default click behavior)
             // window.location.hash = target;
         });
